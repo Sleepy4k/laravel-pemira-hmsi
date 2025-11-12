@@ -36,7 +36,7 @@ class BatchFactory extends Factory
             return [
                 'id' => array_shift($uuids),
                 'name' => $batchName,
-                'description' => "Batch for the academic year {$batchName}",
+                'description' => "Angkatan {$batchName} HMSI Universitas Telkom Purwokerto",
                 'created_at' => $currentTime,
                 'updated_at' => $currentTime,
             ];

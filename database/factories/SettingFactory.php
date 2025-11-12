@@ -17,7 +17,7 @@ class SettingFactory extends Factory
     public function definition(): array
     {
         $currentTime = now();
-        $defaultLogo = asset('favicon.ico', (bool) !config('app.debug', false));
+        $defaultLogo = asset('images/pemira.png', (bool) !config('app.debug', false));
 
         $data = [
             [
