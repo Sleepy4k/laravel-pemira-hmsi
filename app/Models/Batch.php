@@ -3,12 +3,13 @@
 namespace App\Models;
 
 use App\Concerns\HasUuid;
+use App\Concerns\MakeCacheable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Batch extends Model
 {
-    use HasFactory, HasUuid;
+    use HasFactory, HasUuid, MakeCacheable;
 
     /**
      * The attributes that are mass assignable.
@@ -36,4 +37,12 @@ class Batch extends Model
         ];
     }
 
+    /**
+     * Set the cache prefix.
+     *
+     * @return string
+     */
+    public function setCachePrefix(): string {
+        return 'batch.cache';
+    }
 }

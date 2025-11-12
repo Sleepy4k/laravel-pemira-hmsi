@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use App\Concerns\MakeCacheable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, MakeCacheable;
 
     /**
      * The attributes that are mass assignable.
@@ -45,5 +46,14 @@ class User extends Authenticatable
             'created_at' => 'datetime',
             'updated_at' => 'datetime',
         ];
+    }
+
+    /**
+     * Set the cache prefix.
+     *
+     * @return string
+     */
+    public function setCachePrefix(): string {
+        return 'user.cache';
     }
 }

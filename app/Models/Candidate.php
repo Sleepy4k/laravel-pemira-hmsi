@@ -3,11 +3,12 @@
 namespace App\Models;
 
 use App\Concerns\HasUuid;
+use App\Concerns\MakeCacheable;
 use Illuminate\Database\Eloquent\Model;
 
 class Candidate extends Model
 {
-    use HasUuid;
+    use HasUuid, MakeCacheable;
 
     /**
      * The attributes that are mass assignable.
@@ -38,4 +39,12 @@ class Candidate extends Model
         ];
     }
 
+    /**
+     * Set the cache prefix.
+     *
+     * @return string
+     */
+    public function setCachePrefix(): string {
+        return 'candidate.cache';
+    }
 }
