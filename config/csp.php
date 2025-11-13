@@ -10,6 +10,7 @@ return [
         App\Presets\BasicPolicy::class,
         App\Presets\GoogleFontStaticPolicy::class,
         App\Presets\GoogleFontApiPolicy::class,
+        App\Presets\BoxiconUnpkgPolicy::class,
     ],
 
     /**
