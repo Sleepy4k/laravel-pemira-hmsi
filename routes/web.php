@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Landing;
+use App\Http\Controllers\Dashboard\Profile;
+use App\Http\Controllers\Dashboard\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,9 +15,8 @@ use Illuminate\Support\Facades\Route;
 | Remember not to list anything of importance, use authenticate route instead.
 */
 
-Route::get('/', function () {
-    return view('landing.home');
-});
+Route::get('/', Landing\HomeController::class)->name('landing');
+Route::get('/timeline', Landing\TimelineController::class)->name('timeline');
 
 /*
 |--------------------------------------------------------------------------
@@ -25,3 +27,41 @@ Route::get('/', function () {
 | are meant to be used privately since the access is exclusive to authenticated
 | user who had obtained their access through the login process.
 */
+
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', HomeController::class)->name('dashboard');
+
+    Route::prefix('profile')->name('profile.')->group(function () {
+        Route::get('/account', Profile\AccountController::class)->name('account');
+    });
+
+    Route::prefix('dashboard')->name('dashboard.')->group(function () {
+        Route::get('/candidates', function () {
+            return view('dashboard.candidates.index');
+        })->name('candidates');
+
+        Route::get('/voters', function () {
+            return view('dashboard.voters.index');
+        })->name('voters');
+
+        Route::get('/batches', function () {
+            return view('dashboard.batches.index');
+        })->name('batches');
+
+        Route::get('/sessions', function () {
+            return view('dashboard.sessions.index');
+        })->name('sessions');
+
+        Route::get('/admins', function () {
+            return view('dashboard.admins.index');
+        })->name('admins');
+
+        Route::get('/settings', function () {
+            return view('dashboard.settings.index');
+        })->name('settings');
+
+        Route::get('/profile', function () {
+            return view('dashboard.profile.index');
+        })->name('profile');
+    });
+});
