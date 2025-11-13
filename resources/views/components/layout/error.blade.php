@@ -48,7 +48,7 @@
         <meta property="twitter:image:type" content="image/png">
         <meta property="twitter:image:alt" content="{{ $appSettings['app_name'] }} - {{ $title }}">
 
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/addon/layout-error.js'])
     </head>
     <body>
         <main class="min-h-screen flex items-center justify-center bg-gradient-to-br from-cyan-100 via-cyan-200 to-teal-400 p-6">
@@ -79,7 +79,7 @@
                                 ← Back
                             </button>
 
-                            <button id="home-btn" data-href="{{ url('/') }}" class="inline-flex items-center px-4 py-2 border border-teal-600 text-teal-700 rounded-md bg-white hover:bg-teal-50 transition">
+                            <button id="home-btn" data-href="{{ route('landing') }}" class="inline-flex items-center px-4 py-2 border border-teal-600 text-teal-700 rounded-md bg-white hover:bg-teal-50 transition">
                                 Home
                             </button>
 
@@ -111,48 +111,5 @@
         </main>
 
         <x-utils.noscript />
-
-        <script @cspNonce>
-            document.addEventListener('DOMContentLoaded', function () {
-                const backBtn = document.getElementById('back-btn');
-                const homeBtn = document.getElementById('home-btn');
-                const retryBtn = document.getElementById('retry-btn');
-                const timestamp = document.getElementById('timestamp');
-
-                const previousUrl = backBtn.getAttribute('data-href');
-                if (!previousUrl || previousUrl !== window.location.href) {
-                    backBtn.style.display = 'block';
-                }
-
-                backBtn.addEventListener('click', function () {
-                    const href = this.getAttribute('data-href');
-                    if (href) {
-                        window.location.href = href;
-                    } else {
-                        window.history.back();
-                    }
-                });
-
-                homeBtn.addEventListener('click', function () {
-                    const href = this.getAttribute('data-href');
-                    window.location.href = href;
-                });
-
-                retryBtn.addEventListener('click', function () {
-                    window.location.reload();
-                });
-
-                setInterval(function () {
-                    const now = new Date();
-                    const year = now.getFullYear();
-                    const month = String(now.getMonth() + 1).padStart(2, '0');
-                    const day = String(now.getDate()).padStart(2, '0');
-                    const hours = String(now.getHours()).padStart(2, '0');
-                    const minutes = String(now.getMinutes()).padStart(2, '0');
-                    const seconds = String(now.getSeconds()).padStart(2, '0');
-                    timestamp.textContent = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-                }, 1000);
-            });
-        </script>
     </body>
 </html>

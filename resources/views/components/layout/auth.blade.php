@@ -48,55 +48,28 @@
         <meta property="twitter:image:type" content="image/png">
         <meta property="twitter:image:alt" content="{{ $appSettings['app_name'] }} - {{ $title }}">
 
-        @vite(['resources/css/landing.css'])
-
-        @stack('head-plugins')
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body>
-        <div class="refresh-animation">
-            <div class="refresh-logo">
-                <div class="logo-item logo-2">
-                    <img src="{{ asset('images/pemira.png') }}" alt="HIMASI Logo" loading="lazy">
-                </div>
+    <body class="bg-gray-50 min-h-screen flex flex-col items-center justify-center p-4">
+        <div
+            class="w-full max-w-md bg-white border border-gray-200 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] p-6 sm:p-8">
+            <div class="flex justify-center">
+                <a href="{{ route('landing') }}" class="inline-block">
+                    <img src="{{ $appSettings['app_logo'] }}" alt="{{ $appSettings['app_name'] }} Logo"
+                        class="mx-auto h-12 sm:h-16 w-auto drop-shadow-sm" loading="lazy" />
+                </a>
             </div>
+
+            {{ $slot }}
         </div>
 
-        <div class="pattern-overlay"></div>
-        <div class="floating-shapes">
-            <div class="shape shape1"></div>
-            <div class="shape shape2"></div>
-            <div class="shape shape3"></div>
+        <div class="w-full max-w-md text-center mt-6 sm:mt-8 px-2">
+            <p class="text-sm sm:text-base text-gray-400 leading-relaxed">
+                © {{ date('Y') }} <span class="font-semibold text-neutral-700">{{ $appSettings['app_name'] }}</span>.
+                All rights reserved.
+            </p>
         </div>
-
-        <x-landing.navbar />
-
-        {{ $slot }}
 
         <x-utils.noscript />
-
-        <script @cspNonce>
-            document.addEventListener('DOMContentLoaded', function() {
-                setTimeout(function() {
-                    const refreshAnimation = document.querySelector('.refresh-animation');
-                    if (refreshAnimation) {
-                        refreshAnimation.style.display = 'none';
-                    }
-                }, 3000);
-
-                const loginButton = document.getElementById('login-button');
-                if (loginButton) {
-                    loginButton.addEventListener('click', function() {
-                        window.location.href = "{{ route('signin') }}";
-                    });
-                }
-
-                const dashboardButton = document.getElementById('dashboard-button');
-                if (dashboardButton) {
-                    dashboardButton.addEventListener('click', function() {
-                        window.location.href = "{{ route('dashboard') }}";
-                    });
-                }
-            });
-        </script>
     </body>
 </html>

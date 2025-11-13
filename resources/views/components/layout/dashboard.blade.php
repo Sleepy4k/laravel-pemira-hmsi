@@ -48,55 +48,35 @@
         <meta property="twitter:image:type" content="image/png">
         <meta property="twitter:image:alt" content="{{ $appSettings['app_name'] }} - {{ $title }}">
 
-        @vite(['resources/css/landing.css'])
-
-        @stack('head-plugins')
+        @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/addon/layout-dashboard.js'])
     </head>
     <body>
-        <div class="refresh-animation">
-            <div class="refresh-logo">
-                <div class="logo-item logo-2">
-                    <img src="{{ asset('images/pemira.png') }}" alt="HIMASI Logo" loading="lazy">
+        <div class="flex h-screen bg-neutral-100 font-sans">
+            <div id="sidebar-overlay" class="fixed inset-0 bg-black/30 backdrop-blur-sm z-30 lg:hidden hidden"></div>
+
+            <x-dashboard.sidebar :appName="$appSettings['app_name']" :appLogo="$appSettings['app_logo']" />
+
+            <main class="flex-1 overflow-y-auto flex flex-col">
+                <x-dashboard.navbar :title="$title" />
+
+                <div class="flex-1 p-8 lg:p-8" id="main-content" style="display: none;">
+                    {{ $slot }}
                 </div>
-            </div>
+
+                <div class="flex-1 p-8 lg:p-8" id="main-loader">
+                    <div class="flex flex-col items-center justify-center h-full">
+                        <div class="loader ease-linear rounded-full border-8 border-t-8 border-gray-200 h-16 w-16 mb-4"></div>
+                        <h2 class="text-center text-xl font-semibold text-neutral-700">Loading...</h2>
+                    </div>
+                </div>
+
+                <x-dashboard.footer :appName="$appSettings['app_name']" />
+            </main>
+
+            <form id="logout-form" data-action="{{ route('logout') }}" data-redirect="{{ route('landing') }}"
+                class="hidden"></form>
         </div>
-
-        <div class="pattern-overlay"></div>
-        <div class="floating-shapes">
-            <div class="shape shape1"></div>
-            <div class="shape shape2"></div>
-            <div class="shape shape3"></div>
-        </div>
-
-        <x-landing.navbar />
-
-        {{ $slot }}
 
         <x-utils.noscript />
-
-        <script @cspNonce>
-            document.addEventListener('DOMContentLoaded', function() {
-                setTimeout(function() {
-                    const refreshAnimation = document.querySelector('.refresh-animation');
-                    if (refreshAnimation) {
-                        refreshAnimation.style.display = 'none';
-                    }
-                }, 3000);
-
-                const loginButton = document.getElementById('login-button');
-                if (loginButton) {
-                    loginButton.addEventListener('click', function() {
-                        window.location.href = "{{ route('signin') }}";
-                    });
-                }
-
-                const dashboardButton = document.getElementById('dashboard-button');
-                if (dashboardButton) {
-                    dashboardButton.addEventListener('click', function() {
-                        window.location.href = "{{ route('dashboard') }}";
-                    });
-                }
-            });
-        </script>
     </body>
 </html>
