@@ -26,8 +26,10 @@ class ViewServiceProvider extends ServiceProvider
         }
 
         View::composer([
-            'components.layout.landing',
+            'components.layout.auth',
+            'components.layout.dashboard',
             'components.layout.error',
+            'components.layout.landing',
         ], SettingComposer::class);
     }
 }

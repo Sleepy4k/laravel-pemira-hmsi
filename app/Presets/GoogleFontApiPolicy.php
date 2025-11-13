@@ -16,11 +16,9 @@ class GoogleFontApiPolicy implements Preset
     public function configure(Policy $policy): void
     {
         if (app()->environment(['production', 'staging'])) {
-            $policy
-                ->add([Directive::STYLE_ELEM], 'fonts.googleapis.com');
+            $policy->add([Directive::STYLE_ELEM], 'fonts.googleapis.com');
         } else {
-            $policy
-                ->add([Directive::STYLE], 'fonts.googleapis.com');
+            $policy->add([Directive::STYLE], 'fonts.googleapis.com');
         }
     }
 }

@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Casts\AsEncrypt;
+use App\Casts\AsHash;
 use App\Concerns\HasUuid;
 use App\Concerns\MakeCacheable;
 use Illuminate\Database\Eloquent\Model;
@@ -33,9 +35,9 @@ class Voter extends Model
     {
         return [
             'id' => 'string',
-            'name' => 'string',
-            'email' => 'string',
-            'vote_token' => 'string',
+            'name' => AsHash::class,
+            'email' => AsHash::class,
+            'vote_token' => AsEncrypt::class,
             'has_voted' => 'boolean',
             'voted_at' => 'datetime',
             'batch_id' => 'string',

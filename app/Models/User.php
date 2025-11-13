@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\AsEncrypt;
 use App\Concerns\MakeCacheable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -41,7 +42,7 @@ class User extends Authenticatable
         return [
             'id' => 'string',
             'name' => 'string',
-            'username' => 'string',
+            'username' => AsEncrypt::class,
             'password' => 'hashed',
             'created_at' => 'datetime',
             'updated_at' => 'datetime',

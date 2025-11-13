@@ -15,14 +15,12 @@ class GoogleFontStaticPolicy implements Preset
      */
     public function configure(Policy $policy): void
     {
+        $policy->add([Directive::FONT], 'fonts.gstatic.com');
+
         if (app()->environment(['production', 'staging'])) {
-            $policy
-                ->add([Directive::STYLE_ELEM], 'fonts.gstatic.com')
-                ->add([Directive::FONT], 'fonts.gstatic.com');
+            $policy->add([Directive::STYLE_ELEM], 'fonts.gstatic.com');
         } else {
-            $policy
-                ->add([Directive::STYLE], 'fonts.gstatic.com')
-                ->add([Directive::FONT], 'fonts.gstatic.com');
+            $policy->add([Directive::STYLE], 'fonts.gstatic.com');
         }
     }
 }

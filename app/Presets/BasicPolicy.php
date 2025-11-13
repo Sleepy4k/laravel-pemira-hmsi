@@ -39,7 +39,8 @@ class BasicPolicy implements Preset
                 ->addNonce(Directive::SCRIPT_ELEM);
         } else {
             $policy
-                ->add([Directive::WORKER], [Keyword::SELF, Scheme::WS, Scheme::WSS])
+                ->add([Directive::CONNECT], ['*'])
+                ->add([Directive::WORKER], ['*', Scheme::WS, Scheme::WSS])
                 ->add([Directive::IMG], ['*', Scheme::BLOB, Scheme::DATA])
                 ->add([Directive::SCRIPT], ['*', Keyword::SELF, Keyword::UNSAFE_INLINE, Keyword::UNSAFE_EVAL])
                 ->add([Directive::STYLE], ['*', Keyword::SELF, Keyword::UNSAFE_INLINE]);
