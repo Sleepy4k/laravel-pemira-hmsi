@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Support\AttributeEncryptor;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 
@@ -37,7 +38,7 @@ class UserFactory extends Factory
         return array_map(function ($user) use ($currentTime) {
             return [
                 'name' => $user['name'],
-                'username' => $user['username'],
+                'username' => AttributeEncryptor::encrypt($user['username']),
                 'password' => static::$password ??= Hash::make('password'),
                 'created_at' => $currentTime,
                 'updated_at' => $currentTime,

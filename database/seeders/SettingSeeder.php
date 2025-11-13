@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Setting;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class SettingSeeder extends Seeder
@@ -13,6 +12,8 @@ class SettingSeeder extends Seeder
      */
     public function run(): void
     {
+        if (Setting::query()->withoutCache()->count() > 0) return;
+
         $settings = Setting::factory()->make();
 
         Setting::insert($settings->toArray());

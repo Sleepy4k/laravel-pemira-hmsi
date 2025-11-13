@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\VotingSession;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class VotingSessionSeeder extends Seeder
@@ -13,6 +12,8 @@ class VotingSessionSeeder extends Seeder
      */
     public function run(): void
     {
+        if (VotingSession::query()->withoutCache()->count() > 0) return;
+
         $sessions = VotingSession::factory()->make();
 
         VotingSession::insert($sessions->toArray());

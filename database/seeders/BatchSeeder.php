@@ -12,6 +12,8 @@ class BatchSeeder extends Seeder
      */
     public function run(): void
     {
+        if (Batch::query()->withoutCache()->count() > 0) return;
+
         $batches = Batch::factory()->make();
 
         Batch::insert($batches->toArray());
