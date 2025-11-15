@@ -54,4 +54,27 @@ class Voter extends Model
     public function setCachePrefix(): string {
         return 'voter.cache';
     }
+
+    /**
+     * Get the batch that owns the voter.
+     */
+    public function batch()
+    {
+        return $this->belongsTo(Batch::class, 'batch_id');
+    }
+
+    /**
+     * Get the voting session associated with the voter through batch.
+     */
+    public function votingSession()
+    {
+        return $this->hasOneThrough(
+            VotingSession::class,
+            Batch::class,
+            'id', // Foreign key on the batches table...
+            'id', // Foreign key on the voting_sessions table...
+            'batch_id', // Local key on the voters table...
+            'id' // Local key on the batches table...
+        );
+    }
 }

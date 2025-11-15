@@ -31,4 +31,20 @@ class Vote extends Model
             'updated_at' => 'datetime',
         ];
     }
+
+    /**
+     * Get the voting session that owns the vote.
+     */
+    public function votingSession()
+    {
+        return $this->belongsTo(VotingSession::class, 'voting_session_id');
+    }
+
+    /**
+     * Get the candidate that owns the vote.
+     */
+    public function candidate()
+    {
+        return $this->belongsTo(Candidate::class, 'candidate_id');
+    }
 }

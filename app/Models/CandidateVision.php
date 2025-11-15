@@ -44,4 +44,12 @@ class CandidateVision extends Model
     public function setCachePrefix(): string {
         return 'candidate.vision.cache';
     }
+
+    /**
+     * Get the candidate that owns the vision.
+     */
+    public function candidate()
+    {
+        return $this->belongsTo(Candidate::class, 'candidate_id');
+    }
 }

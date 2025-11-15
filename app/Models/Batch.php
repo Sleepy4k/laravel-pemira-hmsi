@@ -45,4 +45,21 @@ class Batch extends Model
     public function setCachePrefix(): string {
         return 'batch.cache';
     }
+
+    /**
+     * Get the voting session for the batch.
+     */
+    public function votingSession()
+    {
+        return $this->hasOne(VotingSession::class, 'batch_id');
+    }
+
+    /**
+     * Get the voters for the batch.
+     */
+    public function voters()
+    {
+        return $this->hasMany(Voter::class, 'batch_id');
+    }
 }
+

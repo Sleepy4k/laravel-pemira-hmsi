@@ -15,6 +15,8 @@ class BoxiconUnpkgPolicy implements Preset
      */
     public function configure(Policy $policy): void
     {
-        $policy->add([Directive::CONNECT], 'unpkg.com/boxicons@2.1.4/svg/');
+        $policy
+            ->add([Directive::FONT], 'cdn.jsdelivr.net/npm/boxicons@2.1.4/')
+            ->add([Directive::CONNECT], 'unpkg.com/boxicons@2.1.4/svg/');
     }
 }

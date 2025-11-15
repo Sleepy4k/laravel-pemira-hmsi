@@ -47,4 +47,28 @@ class VotingSession extends Model
     public function setCachePrefix(): string {
         return 'voting.session.cache';
     }
+
+    /**
+     * Get the batch that owns the voting session.
+     */
+    public function batch()
+    {
+        return $this->belongsTo(Batch::class, 'batch_id');
+    }
+
+    /**
+     * Get the voters for the voting session through batch.
+     */
+    public function voters()
+    {
+        return $this->hasManyThrough(Voter::class, Batch::class, 'id', 'batch_id', 'id', 'id');
+    }
+
+    /**
+     * Get the votes for the voting session.
+     */
+    public function votes()
+    {
+        return $this->hasMany(Vote::class, 'voting_session_id');
+    }
 }

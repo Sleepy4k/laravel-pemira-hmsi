@@ -44,4 +44,12 @@ class CandidateMission extends Model
     public function setCachePrefix(): string {
         return 'candidate.mission.cache';
     }
+
+    /**
+     * Get the candidate that owns the mission.
+     */
+    public function candidate()
+    {
+        return $this->belongsTo(Candidate::class, 'candidate_id');
+    }
 }

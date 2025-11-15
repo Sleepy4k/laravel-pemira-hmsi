@@ -30,7 +30,7 @@ class Sidebar extends Component
             ],
             [
                 'name' => 'Candidates',
-                'route' => 'dashboard.candidates',
+                'route' => 'dashboard.candidates.index',
                 'icon' => 'user-check',
                 'is_header' => false,
             ],

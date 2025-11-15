@@ -22,7 +22,7 @@ class BasicPolicy implements Preset
             ->add([Directive::BASE, Directive::DEFAULT], Keyword::SELF)
             ->add([Directive::FORM_ACTION, Directive::MEDIA, Directive::FRAME], Keyword::SELF)
             ->add([Directive::MANIFEST, Directive::CHILD, Directive::CONNECT], Keyword::SELF)
-            ->add([Directive::OBJECT, Directive::WEB_RTC], Keyword::NONE)
+            ->add([Directive::OBJECT], Keyword::SELF)
             ->add([Directive::FONT], [Keyword::SELF, Scheme::DATA])
             ->add([Directive::BLOCK_ALL_MIXED_CONTENT], Value::NO_VALUE);
 
