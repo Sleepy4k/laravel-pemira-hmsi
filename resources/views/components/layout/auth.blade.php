@@ -48,11 +48,26 @@
         <meta property="twitter:image:type" content="image/png">
         <meta property="twitter:image:alt" content="{{ $appSettings['app_name'] }} - {{ $title }}">
 
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @vite(['resources/css/app.css', 'resources/css/addon/signin.css', 'resources/js/app.js'])
     </head>
     <body class="bg-gray-50 min-h-screen flex flex-col items-center justify-center p-4">
+        <div class="refresh-animation">
+            <div class="refresh-logo">
+                <div class="logo-item logo-2">
+                    <img src="{{ asset('images/pemira.png') }}" alt="HIMASI Logo" loading="lazy">
+                </div>
+            </div>
+        </div>
+
+        <div class="pattern-overlay"></div>
+        <div class="floating-shapes">
+            <div class="shape shape1"></div>
+            <div class="shape shape2"></div>
+            <div class="shape shape3"></div>
+        </div>
+
         <div
-            class="w-full max-w-md bg-white border border-gray-200 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] p-6 sm:p-8">
+            class="w-full max-w-md bg-white border border-gray-200 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] p-6 sm:p-8 z-10">
             <div class="flex justify-center">
                 <a href="{{ route('landing') }}" class="inline-block">
                     <img src="{{ $appSettings['app_logo'] }}" alt="{{ $appSettings['app_name'] }} Logo"

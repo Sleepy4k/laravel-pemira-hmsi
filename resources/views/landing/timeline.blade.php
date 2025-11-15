@@ -1,6 +1,8 @@
-@vite(['resources/js/lib/boxicons.js', 'resources/js/addon/timeline-page.js'])
+<x-layout.landing title="Timeline {{ date('Y') }}">
+    @pushOnce('vites')
+        @vite(['resources/js/lib/boxicons.js', 'resources/js/addon/timeline-page.js'])
+    @endPushOnce
 
-<x-layout.landing title="Timeline">
     <section class="timeline-section">
         <div class="timeline-container">
             <h2 class="timeline-header">Timeline PEMIRA 2025</h2>

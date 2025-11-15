@@ -22,6 +22,7 @@
 
         @cspMetaTag
 
+        <meta property="csrf-token" content="{{ csrf_token() }}">
         <meta property="csp-nonce" content="{{ app('csp-nonce') }}">
 
         <meta property="og:locale" content="{{ app()->getLocale() }}">
@@ -48,7 +49,9 @@
         <meta property="twitter:image:type" content="image/png">
         <meta property="twitter:image:alt" content="{{ $appSettings['app_name'] }} - {{ $title }}">
 
-        @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/addon/layout-dashboard.js'])
+        @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/lib/boxicons.js', 'resources/js/addon/layout-dashboard.js'])
+
+        @stack('vites')
     </head>
     <body>
         <div class="flex h-screen bg-neutral-100 font-sans">
@@ -61,6 +64,10 @@
 
                 <div class="flex-1 p-8 lg:p-8" id="main-content" style="display: none;">
                     {{ $slot }}
+                </div>
+
+                <div id="offcanvas-backdrop"
+                    class="fixed inset-0 backdrop-blur-xs bg-white/30 bg-opacity-50 z-40 hidden transition-opacity duration-300">
                 </div>
 
                 <div class="flex-1 p-8 lg:p-8" id="main-loader">
@@ -78,5 +85,7 @@
         </div>
 
         <x-utils.noscript />
+
+        @stack('scripts')
     </body>
 </html>

@@ -1,6 +1,8 @@
-@vite(['resources/js/lib/apexchart.js', 'resources/js/addon/home-page.js'])
-
 <x-layout.dashboard title="Dashboard">
+    @pushOnce('vites')
+        @vite(['resources/js/lib/apexchart.js', 'resources/js/addon/home-page.js'])
+    @endPushOnce
+
     <div class="mb-8">
         <h1 class="text-3xl font-bold text-neutral-900 mb-2">
             Welcome back, {{ auth('web')->user()->name ?? 'Admin' }}!
@@ -64,7 +66,7 @@
 
     <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
         <div class="lg:col-span-3 bg-white rounded-xl shadow-sm border border-neutral-200 p-6">
-            <div id="barChart" data-chart="{{ json_encode($votesPerSession) }}"></div>
+            <div id="barChart" data-chart="{{ json_encode($votesPerBatch) }}"></div>
         </div>
         <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-6">
             <div id="pieChart" data-chart="{{ json_encode($votingStatus) }}"></div>

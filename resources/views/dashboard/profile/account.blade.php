@@ -2,15 +2,15 @@
     <nav class="mb-6">
         <div class="inline-flex items-center gap-1 p-1 bg-gray-50 border rounded-xl">
             <a href="{{ route('profile.account') }}"
-                class="px-4 py-2 rounded-lg text-sm font-medium transition {{ request()->routeIs('profile.account') ? 'bg-blue-600 text-white shadow' : 'text-gray-600 hover:text-gray-900 hover:bg-white' }}">
+                class="px-4 py-2 rounded-lg text-sm font-medium transition {{ request()->routeIs('profile.account') ? 'bg-primary-600 hover:bg-primary-700 text-white shadow' : 'text-gray-600 hover:text-gray-900 hover:bg-primary-700' }}">
                 Account
             </a>
             <a href="#"
-                class="px-4 py-2 rounded-lg text-sm font-medium transition {{ request()->routeIs('profile.settings') ? 'bg-blue-600 text-white shadow' : 'text-gray-600 hover:text-gray-900 hover:bg-white' }}">
+                class="px-4 py-2 rounded-lg text-sm font-medium transition {{ request()->routeIs('profile.settings') ? 'bg-primary-600 hover:bg-primary-700 text-white shadow' : 'text-gray-600 hover:text-gray-900 hover:bg-primary-700' }}">
                 Settings
             </a>
             <a href="#"
-                class="px-4 py-2 rounded-lg text-sm font-medium transition {{ request()->routeIs('profile.security') ? 'bg-blue-600 text-white shadow' : 'text-gray-600 hover:text-gray-900 hover:bg-white' }}">
+                class="px-4 py-2 rounded-lg text-sm font-medium transition {{ request()->routeIs('profile.security') ? 'bg-primary-600 hover:bg-primary-700 text-white shadow' : 'text-gray-600 hover:text-gray-900 hover:bg-primary-700' }}">
                 Security
             </a>
         </div>

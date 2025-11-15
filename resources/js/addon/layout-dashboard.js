@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (logoutLink) {
         logoutLink.addEventListener('click', function(event) {
             event.preventDefault();
-            if (window.Swal !== undefined) {
+            if (typeof Swal !== "undefined") {
                 window.Swal.fire({
                     title: 'Are you sure you want to logout?',
                     icon: 'warning',

@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var formStatus = {
         usernameValid: false,
         passwordValid: false,
+        rateLimited: false
     }
 
     function isFormValid() {
@@ -31,6 +32,120 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    function displayInfoMessage(message, isError = true) {
+        const infoContainer = document.getElementById('info-container');
+        if (infoContainer) {
+            infoContainer.textContent = message;
+            infoContainer.classList.remove('hidden');
+            if (isError) {
+                infoContainer.classList.add('text-red-600');
+                infoContainer.classList.remove('text-green-600');
+            } else {
+                infoContainer.classList.add('text-green-600');
+                infoContainer.classList.remove('text-red-600');
+            }
+        }
+    }
+
+    function clearInfoMessage() {
+        const infoContainer = document.getElementById('info-container');
+        if (infoContainer) {
+            infoContainer.classList.add('hidden');
+            infoContainer.textContent = '';
+        }
+    }
+
+    function changeButtonState(isDisabled) {
+        const submitButton = document.getElementById('signin-submit-btn');
+        if (submitButton) {
+            submitButton.disabled = isDisabled;
+            if (isDisabled) {
+                submitButton.classList.add('opacity-50', 'cursor-not-allowed');
+                submitButton.classList.remove('hover:opacity-95');
+            } else {
+                submitButton.classList.remove('opacity-50', 'cursor-not-allowed');
+                submitButton.classList.add('hover:opacity-95');
+            }
+            return submitButton;
+        }
+        return null;
+    }
+
+    function changeFormState(isDisabled) {
+        const signinForm = document.getElementById('signin-form');
+        if (signinForm) {
+            Array.from(signinForm.elements).forEach(element => {
+                element.disabled = isDisabled;
+                if (isDisabled) {
+                    element.classList.add('opacity-50', 'cursor-not-allowed');
+                } else {
+                    element.classList.remove('opacity-50', 'cursor-not-allowed');
+                }
+            });
+        }
+        changeButtonState(isDisabled);
+    }
+
+    function showNotification(type, message) {
+        if (typeof Swal !== "undefined") {
+            window.Toast.fire({
+                icon: type,
+                title: message
+            });
+        } else {
+            alert(message);
+        }
+    }
+
+    function buttonLoadingState(isLoading) {
+        const button = changeButtonState(isLoading);
+        if (!button) return;
+
+        if (isLoading) {
+            button.dataset.originalText = button.innerHTML;
+            button.innerHTML = 'Signing in...';
+        } else {
+            if (button.dataset.originalText) {
+                button.innerHTML = button.dataset.originalText;
+            }
+        }
+    }
+
+    // get header data for rate limiting
+    const header = document.querySelector('header[data-remaining][data-reset-at]');
+    if (header) {
+        const remaining = parseInt(header.getAttribute('data-remaining'), 10);
+        const resetAt = parseInt(header.getAttribute('data-reset-at'), 10);
+
+        if (remaining <= 0 && resetAt) {
+            formStatus.rateLimited = true;
+            changeFormState(true);
+
+            let remainingSeconds = resetAt;
+
+            const updateCountdown = () => {
+                const minutes = Math.floor(remainingSeconds / 60);
+                const seconds = remainingSeconds % 60;
+                const timeString = minutes > 0
+                    ? `${minutes} minute(s) and ${seconds} second(s)`
+                    : `${seconds} second(s)`;
+
+                displayInfoMessage(`Too many failed attempts. Please wait ${timeString} before trying again.`);
+
+                if (remainingSeconds > 0) {
+                    remainingSeconds--;
+                    setTimeout(updateCountdown, 1000);
+                } else {
+                    formStatus.rateLimited = false;
+                    changeFormState(false);
+                    clearInfoMessage();
+                }
+            };
+
+            updateCountdown();
+        }
+    }
+
     const signinForm = document.getElementById('signin-form');
     if (signinForm) {
         signinForm.addEventListener('submit', function(e) {
@@ -39,14 +154,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (actionUrl) {
                 if (!isFormValid()) {
-                    if (window.Toast !== undefined) {
-                        window.Toast.fire({
-                            icon: 'error',
-                            title: 'Please fix the errors in the form before submitting.'
-                        });
-                    } else {
-                        alert('Please fix the errors in the form before submitting.');
-                    }
+                    showNotification('error', 'Please fix the errors in the form before submitting.');
                     return;
                 }
 
@@ -54,48 +162,60 @@ document.addEventListener('DOMContentLoaded', function() {
                 formData.append('username', document.getElementById('username').value || '');
                 formData.append('password', document.getElementById('password').value || '');
 
+                buttonLoadingState(true);
+
                 window.axios.post(actionUrl, formData).then(response => {
                     if (response.data && response.data.status === 'success') {
-                        if (window.Toast !== undefined) {
-                            window.Toast.fire({
-                                icon: 'success',
-                                title: 'Sign in successful! Redirecting...'
-                            });
-                        } else {
-                            alert('Sign in successful! Redirecting...');
-                        }
-
+                        showNotification('success', 'Sign in successful! Redirecting...');
                         const redirectUrl = signinForm.getAttribute('data-redirect') || '/';
                         window.location.href = redirectUrl;
                     } else {
-                        if (window.Toast !== undefined) {
-                            window.Toast.fire({
-                                icon: 'error',
-                                title: response.data.message || 'Sign in failed. Please try again.'
-                            });
-                        } else {
-                            alert(response.data.message || 'Sign in failed. Please try again.');
-                        }
+                        showNotification('error', response.data.message || 'Sign in failed. Please try again.');
                     }
                 }).catch(error => {
+                    if (error.response?.data?.data?.remaining !== undefined &&
+                        error.response.data.data.reset_at !== undefined) {
+                        const rateLimiter = error.response.data.data;
+
+                        if (rateLimiter.remaining <= 0) {
+                            changeFormState(true);
+                            formStatus.rateLimited = true;
+                            let remainingSeconds = rateLimiter.reset_at;
+
+                            const updateCountdown = () => {
+                                const minutes = Math.floor(remainingSeconds / 60);
+                                const seconds = remainingSeconds % 60;
+                                const timeString = minutes > 0
+                                    ? `${minutes} minute(s) and ${seconds} second(s)`
+                                    : `${seconds} second(s)`;
+
+                                displayInfoMessage(`Too many failed attempts. Please wait ${timeString} before trying again.`);
+
+                                if (remainingSeconds > 0) {
+                                    remainingSeconds--;
+                                    setTimeout(updateCountdown, 1000);
+                                } else {
+                                    formStatus.rateLimited = false;
+                                    changeFormState(false);
+                                    clearInfoMessage();
+                                }
+                            };
+
+                            updateCountdown();
+                            return;
+                        }
+                    }
+
                     if (error.response && error.response.data && error.response.data.message) {
-                        if (window.Toast !== undefined) {
-                            window.Toast.fire({
-                                icon: 'error',
-                                title: error.response.data.message
-                            });
-                        } else {
-                            alert(error.response.data.message);
-                        }
+                        showNotification('error', error.response.data.message);
                     } else {
-                        if (window.Toast !== undefined) {
-                            window.Toast.fire({
-                                icon: 'error',
-                                title: 'An error occurred. Please try again.'
-                            });
-                        } else {
-                            alert('An error occurred. Please try again.');
-                        }
+                        showNotification('error', 'An error occurred. Please try again.');
+                    }
+                }).finally(() => {
+                    buttonLoadingState(false);
+
+                    if (formStatus.rateLimited) {
+                        changeButtonState(true);
                     }
                 });
             }

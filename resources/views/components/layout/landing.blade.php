@@ -48,9 +48,9 @@
         <meta property="twitter:image:type" content="image/png">
         <meta property="twitter:image:alt" content="{{ $appSettings['app_name'] }} - {{ $title }}">
 
-        @vite(['resources/css/landing.css'])
+        @vite(['resources/css/addon/landing.css', 'resources/js/addon/layout-landing.js'])
 
-        @stack('head-plugins')
+        @stack('vites')
     </head>
     <body>
         <div class="refresh-animation">
@@ -72,31 +72,8 @@
 
         {{ $slot }}
 
+        <x-landing.footer />
+
         <x-utils.noscript />
-
-        <script @cspNonce>
-            document.addEventListener('DOMContentLoaded', function() {
-                setTimeout(function() {
-                    const refreshAnimation = document.querySelector('.refresh-animation');
-                    if (refreshAnimation) {
-                        refreshAnimation.style.display = 'none';
-                    }
-                }, 3000);
-
-                const loginButton = document.getElementById('login-button');
-                if (loginButton) {
-                    loginButton.addEventListener('click', function() {
-                        window.location.href = "{{ route('signin') }}";
-                    });
-                }
-
-                const dashboardButton = document.getElementById('dashboard-button');
-                if (dashboardButton) {
-                    dashboardButton.addEventListener('click', function() {
-                        window.location.href = "{{ route('dashboard') }}";
-                    });
-                }
-            });
-        </script>
     </body>
 </html>
