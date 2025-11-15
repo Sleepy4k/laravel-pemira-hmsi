@@ -9,16 +9,26 @@ export default defineConfig({
                 'resources/css/app.css',
                 'resources/js/app.js',
 
-                'resources/css/landing.css',
+                'resources/css/addon/landing.css',
+                'resources/css/addon/signin.css',
+                'resources/css/addon/candidate.css',
+
+                'resources/css/lib/datatable.css',
+
+                'resources/js/handler/offcanvas.js',
 
                 'resources/js/addon/home-page.js',
+                'resources/js/addon/faq-page.js',
                 'resources/js/addon/layout-dashboard.js',
+                'resources/js/addon/layout-landing.js',
                 'resources/js/addon/layout-error.js',
                 'resources/js/addon/signin-page.js',
                 'resources/js/addon/timeline-page.js',
+                'resources/js/addon/candidate-page.js',
 
                 'resources/js/lib/boxicons.js',
                 'resources/js/lib/apexchart.js',
+                'resources/js/lib/datatable.js',
             ],
             refresh: true,
         }),
@@ -33,7 +43,6 @@ export default defineConfig({
         rollupOptions: {
             output: {
                 manualChunks: {
-                    sweetalert2: ['sweetalert2'],
                     axios: ['axios'],
                 }
             },
