@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\Landing;
 use App\Http\Controllers\Dashboard\Profile;
+use App\Http\Controllers\Dashboard\Candidate;
 use App\Http\Controllers\Dashboard\HomeController;
+use App\Http\Controllers\Storage\ServeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,6 +19,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', Landing\HomeController::class)->name('landing');
 Route::get('/timeline', Landing\TimelineController::class)->name('timeline');
+Route::get('/candidates', Landing\CandidateController::class)->name('candidates');
+
+Route::get('storage/{path}', ServeController::class)->where('path', '.*')
+    ->middleware('throttle:15,1');
 
 /*
 |--------------------------------------------------------------------------
@@ -36,9 +42,7 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::prefix('dashboard')->name('dashboard.')->group(function () {
-        Route::get('/candidates', function () {
-            return view('dashboard.candidates.index');
-        })->name('candidates');
+        Route::resource('/candidates', Candidate\CandidateController::class);
 
         Route::get('/voters', function () {
             return view('dashboard.voters.index');
