@@ -23,13 +23,13 @@ class CandidateDataTable extends DataTable
             'show' => [
                 'class' => 'show-record',
                 'icon' => 'info-circle',
-                'target' => '#show-record',
+                'target' => route('dashboard.candidates.show', ['candidate' => ':id']),
                 'color' => 'primary-600',
             ],
             'edit' => [
                 'class' => 'edit-record',
                 'icon' => 'edit',
-                'target' => '#edit-record',
+                'target' => route('dashboard.candidates.edit', ['candidate' => ':id']),
                 'color' => 'primary-600',
             ],
             'delete' => [
@@ -45,18 +45,26 @@ class CandidateDataTable extends DataTable
                 $actions = '';
 
                 foreach ($buttons as $btn) {
+                    if ($btn['class'] === 'delete-record') {
+                        continue;
+                    }
+
                     $actions .= sprintf(
-                        '<button class="inline-flex items-center justify-center h-[2.5dvh] w-[1.5dvw] bg-%s hover:bg-%s text-white rounded-lg shadow-sm hover:shadow-md transition-all duration-200 %s me-1 cursor-pointer" data-id="%s" %s>
-                            <box-icon name="%s" size="xs" color="#ffffff" class="mb-2"></box-icon>
-                        </button>',
+                        '<a href="%s" class="inline-flex items-center justify-center w-7 h-7 bg-%s hover:bg-%s-700 text-white rounded-lg shadow-sm hover:shadow-md transition-all duration-200 %s me-1" title="%s">
+                            <box-icon name="%s" color="#ffffff"></box-icon>
+                        </a>',
+                        str_replace(':id', $query->id, $btn['target']),
                         $btn['color'],
-                        str_replace('600', '700', $btn['color']),
+                        $btn['color'],
                         $btn['class'],
-                        $query->id,
-                        $btn['target'] ? 'data-target="' . $btn['target'] . '"' : '',
+                        ucfirst(explode('-', $btn['class'])[0]),
                         $btn['icon']
                     );
                 }
+
+                $actions .= '<button class="inline-flex items-center justify-center w-7 h-7 bg-red-600 hover:bg-red-700 text-white rounded-lg shadow-sm hover:shadow-md transition-all duration-200 delete-record me-1 cursor-pointer" data-id="' . $query->id . '">
+                    <box-icon name="trash" color="#ffffff"></box-icon>
+                </button>';
 
                 return $actions ?: '-';
             })
@@ -65,7 +73,7 @@ class CandidateDataTable extends DataTable
             })
             ->addColumn('photo', function ($query) {
                 if ($query->photo) {
-                    return sprintf('<img src="%s" alt="Photo %s" class="h-12 w-12 object-cover rounded-lg mx-auto" loading="lazy" />', $query->photo, $query->number);
+                    return sprintf('<a href="%s" target="_blank"><img src="%s" alt="Photo %s" class="h-12 w-12 object-cover rounded-lg mx-auto" loading="lazy" /></a>', $query->photo, $query->photo, $query->number);
                 }
 
                 return '-';

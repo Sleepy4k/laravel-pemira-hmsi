@@ -26,7 +26,7 @@ return Application::configure(basePath: dirname(__DIR__))
             \App\Http\Middleware\AddSecureHeaderRequest::class,
         ]);
 
-        $middleware->redirectGuestsTo(fn () => route('landing'));
+        $middleware->redirectGuestsTo(fn () => route('signin'));
         $middleware->redirectUsersTo(fn () => route('dashboard'));
     })
     ->withExceptions(function (Exceptions $exceptions): void {

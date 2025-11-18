@@ -31,22 +31,46 @@ class CandidateObserver
      */
     public function updating(Candidate $candidate): void
     {
-        if ($candidate->isDirty('photo')) {
-            $candidate->getOriginal('photo')
-                ? File::deleteFile(UploadFileType::CANDIDATE_PHOTO, $candidate->getOriginal('photo'))
-                : null;
+        if ($candidate->isDirty('photo') && ($candidate->photo != null || $candidate->photo != '')) {
+            $oldImage = $candidate->getOriginal('photo', null);
+
+            if ($oldImage == null) {
+                $candidate->photo = $candidate->photo
+                    ? File::saveSingleFile(UploadFileType::CANDIDATE_PHOTO, $candidate->photo)
+                    : null;
+            } else {
+                $candidate->photo = $candidate->photo
+                    ? File::updateSingleFile(UploadFileType::CANDIDATE_PHOTO, $candidate->photo, $oldImage)
+                    : File::deleteFile(UploadFileType::CANDIDATE_PHOTO, $oldImage);
+            }
         }
 
-        if ($candidate->isDirty('resume')) {
-            $candidate->getOriginal('resume')
-                ? File::deleteFile(UploadFileType::CANDIDATE_DOCUMENT, $candidate->getOriginal('resume'))
-                : null;
+        if ($candidate->isDirty('resume') && ($candidate->resume != null || $candidate->resume != '')) {
+            $oldFile = $candidate->getOriginal('resume', null);
+
+            if ($oldFile == null) {
+                $candidate->resume = $candidate->resume
+                    ? File::saveSingleFile(UploadFileType::CANDIDATE_DOCUMENT, $candidate->resume)
+                    : null;
+            } else {
+                $candidate->resume = $candidate->resume
+                    ? File::updateSingleFile(UploadFileType::CANDIDATE_DOCUMENT, $candidate->resume, $oldFile)
+                    : File::deleteFile(UploadFileType::CANDIDATE_DOCUMENT, $oldFile);
+            }
         }
 
-        if ($candidate->isDirty('attachment')) {
-            $candidate->getOriginal('attachment')
-                ? File::deleteFile(UploadFileType::CANDIDATE_ATTACHMENT, $candidate->getOriginal('attachment'))
-                : null;
+        if ($candidate->isDirty('attachment') && ($candidate->attachment != null || $candidate->attachment != '')) {
+            $oldFile = $candidate->getOriginal('attachment', null);
+
+            if ($oldFile == null) {
+                $candidate->attachment = $candidate->attachment
+                    ? File::saveSingleFile(UploadFileType::CANDIDATE_ATTACHMENT, $candidate->attachment)
+                    : null;
+            } else {
+                $candidate->attachment = $candidate->attachment
+                    ? File::updateSingleFile(UploadFileType::CANDIDATE_ATTACHMENT, $candidate->attachment, $oldFile)
+                    : File::deleteFile(UploadFileType::CANDIDATE_ATTACHMENT, $oldFile);
+            }
         }
     }
 
