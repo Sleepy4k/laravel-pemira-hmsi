@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\Batch;
 use App\Models\Voter;
 use Illuminate\Http\Request;
 
@@ -33,6 +34,13 @@ class HomeController extends Controller
             $votesPerBatch[1]['data'][] = $voters->where('has_voted', false)->count();
         }
 
-        return view('dashboard.home', compact('votesPerBatch', 'votingStatus'));
+        $batchIds = $votes->pluck('batch.id')->unique()->toArray();
+        $batches = Batch::select('name')->whereIn('id', $batchIds)->get();
+
+        if ($batches->isEmpty()) {
+            $batches = Batch::select('name')->orderBy('name')->get();
+        }
+
+        return view('dashboard.home', compact('votesPerBatch', 'votingStatus', 'batches'));
     }
 }

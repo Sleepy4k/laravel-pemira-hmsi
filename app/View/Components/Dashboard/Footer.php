@@ -23,7 +23,7 @@ class Footer extends Component
                 'logo' => asset('images/si.png'),
             ],
             [
-                'name' => 'Telkom University',
+                'name' => 'Telkom University Purwokerto',
                 'url' => 'https://purwokerto.telkomuniversity.ac.id',
                 'logo' => asset('images/telkom.webp'),
             ],

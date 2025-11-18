@@ -46,19 +46,19 @@ class Sidebar extends Component
             ],
             [
                 'name' => 'Batches',
-                'route' => 'dashboard.batches',
+                'route' => 'dashboard.batches.index',
                 'icon' => 'layer',
                 'is_header' => false,
             ],
             [
                 'name' => 'Sessions',
-                'route' => 'dashboard.sessions',
+                'route' => 'dashboard.sessions.index',
                 'icon' => 'folder-open',
                 'is_header' => false,
             ],
             [
                 'name' => 'Admin',
-                'route' => 'dashboard.admins',
+                'route' => 'dashboard.admins.index',
                 'icon' => 'shield',
                 'is_header' => false,
             ],

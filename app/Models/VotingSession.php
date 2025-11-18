@@ -18,8 +18,8 @@ class VotingSession extends Model
      */
     protected $fillable = [
         'batch_id',
-        'start_at',
-        'end_at',
+        'start_time',
+        'end_time',
     ];
 
     /**
@@ -32,8 +32,8 @@ class VotingSession extends Model
         return [
             'id' => 'string',
             'batch_id' => 'string',
-            'start_at' => 'datetime',
-            'end_at' => 'datetime',
+            'start_time' => 'datetime:Y-m-d H:i:s',
+            'end_time' => 'datetime:Y-m-d H:i:s',
             'created_at' => 'datetime',
             'updated_at' => 'datetime',
         ];
