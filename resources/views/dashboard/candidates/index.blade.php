@@ -1,7 +1,15 @@
 <x-layout.dashboard title="Candidates">
     @pushOnce('vites')
-        @vite(['resources/css/lib/datatable.css', 'resources/js/lib/datatable.js', 'resources/js/handler/offcanvas.js'])
+        @vite(['resources/css/lib/datatable.css', 'resources/js/lib/datatable.js', 'resources/js/handler/offcanvas.js', 'resources/js/addon/candidate-page.js'])
     @endPushOnce
+
+    <header
+        data-debug="{{ config('app.debug') ? 'true' : 'false' }}"
+        data-routes='{
+            "update": "{{ route('dashboard.candidates.update', ':id') }}",
+            "destroy": "{{ route('dashboard.candidates.destroy', ':id') }}"
+        }'
+    ></header>
 
     <div class="mb-8 flex items-center justify-between">
         <h1 class="text-3xl font-bold text-neutral-900">
@@ -18,22 +26,52 @@
         </button>
     </div>
 
-    {{ $dataTable->table(['class' => 'w-full table-auto']) }}
+    {{ $dataTable->table() }}
 
     <x-canvas.wrapper id="add-new-record">
         <x-canvas.header title="New Record">
-            <form id="add-candidate-form" class="space-y-4">
+            <form id="add-candidate-form" class="space-y-4" method="POST">
                 <div>
-                    <label for="candidate-name" class="block text-sm font-semibold text-gray-700 mb-1.5">Candidate
-                        Name</label>
-                    <input type="text" id="candidate-name" placeholder="Enter candidate name"
+                    <label for="number" class="block text-sm font-semibold text-gray-700 mb-1.5">Candidate
+                        Number</label>
+                    <input type="number" id="number" placeholder="Enter candidate number" min="1" max="8"
                         class="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
                 </div>
                 <div>
-                    <label for="candidate-description"
-                        class="block text-sm font-semibold text-gray-700 mb-1.5">Description    </label>
-                    <textarea id="candidate-description" placeholder="Enter candidate description"
-                        class="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"></textarea>
+                    <label for="head_name" class="block text-sm font-semibold text-gray-700 mb-1.5">Head
+                        Name</label>
+                    <input type="text" id="head_name" placeholder="Enter head name"
+                        class="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
+                </div>
+                <div>
+                    <label for="vice_name" class="block text-sm font-semibold text-gray-700 mb-1.5">Vice
+                        Name</label>
+                    <input type="text" id="vice_name" placeholder="Enter vice name"
+                        class="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
+                </div>
+                <div>
+                    <label for="photo" class="block text-sm font-semibold text-gray-700 mb-1.5">Photo</label>
+                    <img id="photo-preview" src="#" alt="Image Preview" class="hidden mb-2 max-h-40 rounded-lg" />
+                    <input type="file" id="photo" accept="image/*"
+                        class="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
+                </div>
+                <div>
+                    <label for="resume" class="block text-sm font-semibold text-gray-700 mb-1.5">Resume</label>
+                    <input type="file" id="resume" accept=".pdf,.doc,.docx"
+                        class="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all" />
+                    <div class="mt-2 text-sm text-gray-500">Accepted formats: .pdf, .doc, .docx</div>
+                    <div id="resume-preview-container" class="mt-2 hidden">
+                        <a id="resume-preview-link" href="#" target="_blank" class="text-blue-600 underline">View Uploaded Resume</a>
+                    </div>
+                </div>
+                <div>
+                    <label for="attachment" class="block text-sm font-semibold text-gray-700 mb-1.5">Visi Misi & Proker</label>
+                    <input type="file" id="attachment" accept=".pdf,.doc,.docx"
+                        class="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all" />
+                    <div class="mt-2 text-sm text-gray-500">Accepted formats: .pdf, .doc, .docx</div>
+                    <div id="attachment-preview-container" class="mt-2 hidden">
+                        <a id="attachment-preview-link" href="#" target="_blank" class="text-blue-600 underline">View Uploaded Visi Misi & Proker</a>
+                    </div>
                 </div>
             </form>
         </x-canvas.header>
@@ -58,7 +96,7 @@
 
     <x-canvas.wrapper id="edit-record">
         <x-canvas.header title="Edit Candidate">
-            <form id="form-edit-record" class="space-y-4">
+            <form id="form-edit-record" class="space-y-4" method="PUT" action="#">
                 <div>
                     <label for="edit-candidate-name" class="block text-sm font-semibold text-gray-700 mb-1.5">Candidate
                         Name</label>
@@ -71,46 +109,14 @@
                     <textarea id="edit-candidate-description" placeholder="Enter candidate description"
                         class="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"></textarea>
                 </div>
-                <button type="submit"
-                    class="w-full py-2.5 rounded-lg text-white font-medium hover:opacity-95 transition-opacity shadow-md cursor-pointer bg-gradient-to-br from-teal-700 via-teal-500 to-cyan-300">
-                    Save Changes
-                </button>
             </form>
         </x-canvas.header>
         <x-canvas.footer />
     </x-canvas.wrapper>
 
+    <form class="d-inline" id="form-delete-record" method="DELETE" action="#"></form>
+
     @pushOnce('scripts')
         {{ $dataTable->scripts(attributes: ['type' => 'module', 'nonce' => app('csp-nonce')]) }}
-
-        <script @cspNonce>
-            document.addEventListener('DOMContentLoaded', function() {
-                new OffcanvasHandler({
-                    debug: {{ config('app.debug') ? 'true' : 'false' }},
-                    tableId: '#candidate-table',
-                    routes: {
-                        update: "{{ route('dashboard.candidates.update', ':id') }}",
-                        destroy: "{{ route('dashboard.candidates.destroy', ':id') }}"
-                    },
-                    offcanvas: {
-                        add: {
-                            id: '#add-new-record',
-                            triggerBtnId: '#add-new-record-btn',
-                        },
-                        edit: {
-                            id: '#edit-record',
-                            fieldMap: {
-                                first_name: '#edit-first_name',
-                            },
-                            fieldMapBehavior: {
-                                first_name: function(el, data, rowData) {
-                                    el.val(rowData.personal.first_name);
-                                },
-                            }
-                        }
-                    },
-                });
-            });
-        </script>
     @endPushOnce
 </x-layout.dashboard>

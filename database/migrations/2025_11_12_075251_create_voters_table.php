@@ -16,7 +16,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('name', 100);
             $table->string('email', 150)->unique();
-            $table->text('vote_token')->unique();
+            $table->text('vote_token');
             $table->boolean('has_voted')->default(false);
             $table->timestamp('voted_at')->nullable();
             $table->foreignIdFor(Batch::class)->constrained()->cascadeOnDelete();

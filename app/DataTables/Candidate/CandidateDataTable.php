@@ -45,8 +45,12 @@ class CandidateDataTable extends DataTable
                 $actions = '';
 
                 foreach ($buttons as $btn) {
-                    $actions .= sprintf('<button class="bg-%s pl-[5px] pr-[5px] pt-[5px] cursor-pointer text-white text-sm rounded-lg shadow-sm %s me-1 mb-1" data-id="%s" %s><box-icon name="%s" size="sm"></box-icon></button>',
+                    $actions .= sprintf(
+                        '<button class="inline-flex items-center justify-center h-[2.5dvh] w-[1.5dvw] bg-%s hover:bg-%s text-white rounded-lg shadow-sm hover:shadow-md transition-all duration-200 %s me-1 cursor-pointer" data-id="%s" %s>
+                            <box-icon name="%s" size="xs" color="#ffffff" class="mb-2"></box-icon>
+                        </button>',
                         $btn['color'],
+                        str_replace('600', '700', $btn['color']),
                         $btn['class'],
                         $query->id,
                         $btn['target'] ? 'data-target="' . $btn['target'] . '"' : '',
@@ -56,7 +60,37 @@ class CandidateDataTable extends DataTable
 
                 return $actions ?: '-';
             })
-            ->rawColumns(['action'])
+            ->addColumn('photo_url', function ($query) {
+                return $query->photo ?: null;
+            })
+            ->addColumn('photo', function ($query) {
+                if ($query->photo) {
+                    return sprintf('<img src="%s" alt="Photo %s" class="h-12 w-12 object-cover rounded-lg mx-auto" loading="lazy" />', $query->photo, $query->number);
+                }
+
+                return '-';
+            })
+            ->addColumn('resume_url', function ($query) {
+                return $query->resume ?: null;
+            })
+            ->addColumn('resume', function ($query) {
+                if ($query->resume) {
+                    return sprintf('<a href="%s" target="_blank" class="text-blue-600 underline">View Resume</a>', $query->resume);
+                }
+
+                return '-';
+            })
+            ->addColumn('attachment_url', function ($query) {
+                return $query->attachment ?: null;
+            })
+            ->addColumn('attachment', function ($query) {
+                if ($query->attachment) {
+                    return sprintf('<a href="%s" target="_blank" class="text-blue-600 underline">View Attachment</a>', $query->attachment);
+                }
+
+                return '-';
+            })
+            ->rawColumns(['action', 'photo', 'resume', 'attachment'])
             ->addIndexColumn();
     }
 
@@ -114,10 +148,40 @@ class CandidateDataTable extends DataTable
             Column::computed('DT_RowIndex')
                 ->title('No')
                 ->addClass('text-center'),
+            Column::make('number')
+                ->title('Candidate Number')
+                ->addClass('text-center'),
+            Column::computed('photo')
+                ->title('Photo')
+                ->exportable(false)
+                ->printable(false)
+                ->addClass('text-center')
+                ->width(80),
+            Column::computed('photo_url')
+                ->title('Photo URL')
+                ->hidden(),
             Column::make('head_name')
-                ->title('Head Name'),
+                ->title('Head Name')
+                ->addClass('text-center'),
             Column::make('vice_name')
-                ->title('Vice Name'),
+                ->title('Vice Name')
+                ->addClass('text-center'),
+            Column::computed('resume')
+                ->title('Resume')
+                ->exportable(false)
+                ->printable(false)
+                ->addClass('text-center'),
+            Column::computed('resume_url')
+                ->title('Resume URL')
+                ->hidden(),
+            Column::computed('attachment')
+                ->title('Attachment')
+                ->exportable(false)
+                ->printable(false)
+                ->addClass('text-center'),
+            Column::computed('attachment_url')
+                ->title('Attachment URL')
+                ->hidden(),
             Column::computed('action')
                 ->title('Action')
                 ->exportable(false)

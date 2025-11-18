@@ -17,13 +17,16 @@ export default defineConfig({
 
                 'resources/js/handler/offcanvas.js',
 
-                'resources/js/addon/home-page.js',
-                'resources/js/addon/faq-page.js',
                 'resources/js/addon/layout-dashboard.js',
-                'resources/js/addon/layout-landing.js',
                 'resources/js/addon/layout-error.js',
+                'resources/js/addon/layout-landing.js',
+
+                'resources/js/addon/candidate-landing-page.js',
+                'resources/js/addon/timeline-landing-page.js',
+                'resources/js/addon/home-landing-page.js',
+
                 'resources/js/addon/signin-page.js',
-                'resources/js/addon/timeline-page.js',
+                'resources/js/addon/home-page.js',
                 'resources/js/addon/candidate-page.js',
 
                 'resources/js/lib/boxicons.js',

@@ -1,6 +1,6 @@
 <x-layout.landing title="Information Empowers Democracy">
     @pushOnce('vites')
-        @vite(['resources/js/lib/boxicons.js', 'resources/js/addon/faq-page.js'])
+        @vite(['resources/js/lib/boxicons.js', 'resources/js/addon/home-landing-page.js'])
     @endPushOnce
 
     <section class="hero">

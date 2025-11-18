@@ -1,68 +1,46 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = 1;
-                entry.target.style.transform = 'translateY(0)';
-            }
-        });
-    }, { threshold: 0.1 });
+document.addEventListener("DOMContentLoaded", function () {
+    const headers = document.querySelector("header[data-debug][data-routes]");
+    if (headers) {
+        const isDebug = headers.getAttribute("data-debug") === "true";
+        const routes = JSON.parse(headers.getAttribute("data-routes") || "{}");
 
-    if (observer) {
-        const candidates = document.querySelectorAll('.candidate-card');
-        if (candidates.length) {
-            candidates.forEach((candidate) => {
-                candidate.style.opacity = 0;
-                candidate.style.transform = 'translateY(30px)';
-                candidate.style.transition = 'all 0.6s ease-out';
-                observer.observe(candidate);
-            });
-        }
-    }
-
-    function displayEmbedPDFinModal(url) {
-        const modal = document.getElementById('pdf-modal');
-        const modalContent = modal.querySelector('#pdf-modal-content');
-
-        modalContent.innerHTML = `
-            <span class="close-button" id="close-pdf-modal">&times;</span>
-            <object data="${url}" type="application/pdf" width="100%" height="100%">
-                <p class="pdf-error-message">Something went wrong while loading the PDF file. You can <a href="${url}" target="_blank" rel="noopener">click here to download the PDF file</a>.</p>
-            </object>
-        `;
-        modal.classList.add('active');
-
-        const closeButton = document.getElementById('close-pdf-modal');
-        closeButton.addEventListener('click', function() {
-            modal.classList.remove('active');
-            modalContent.innerHTML = '';
-        });
-
-        window.addEventListener('click', function(event) {
-            if (event.target === modal) {
-                modal.classList.remove('active');
-                modalContent.innerHTML = '';
-            }
+        new OffcanvasHandler({
+            debug: isDebug,
+            tableId: "#candidate-table",
+            routes: routes,
+            offcanvas: {
+                add: {
+                    id: "#add-new-record",
+                    triggerBtnId: "#add-new-record-btn",
+                },
+                show: {
+                    id: "#show-record",
+                    fieldMap: {
+                        first_name: "#show-first_name",
+                        created_at: "#show-created-at",
+                        updated_at: "#show-last-updated",
+                    },
+                    fieldMapBehavior: {
+                        first_name: function (el, data, rowData) {
+                            el.val(rowData.personal.first_name);
+                        },
+                    },
+                },
+                edit: {
+                    id: "#edit-record",
+                    fieldMap: {
+                        first_name: "#edit-first_name",
+                    },
+                    fieldMapBehavior: {
+                        first_name: function (el, data, rowData) {
+                            el.val(rowData.personal.first_name);
+                        },
+                    },
+                },
+            },
         });
     }
 
-    const resumeButtons = document.querySelectorAll('button[id^="download-resume-"]');
-    resumeButtons.forEach((button) => {
-        button.addEventListener('click', function() {
-            const url = this.getAttribute('data-url');
-            if (url) {
-                displayEmbedPDFinModal(url);
-            }
-        });
-    });
+    // display file preview in form
 
-    const attachmentButtons = document.querySelectorAll('button[id^="download-attachment-"]');
-    attachmentButtons.forEach((button) => {
-        button.addEventListener('click', function() {
-            const url = this.getAttribute('data-url');
-            if (url) {
-                displayEmbedPDFinModal(url);
-            }
-        });
-    });
 });

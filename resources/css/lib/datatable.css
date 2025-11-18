@@ -1,3 +1,5 @@
+@import url('datatables.net-responsive-dt');
+
 /* DataTable Variables - Modern Theme */
 :root {
     --dt-row-selected: 250, 154, 68;

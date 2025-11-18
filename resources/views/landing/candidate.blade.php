@@ -1,6 +1,6 @@
 <x-layout.landing title="Kandidat {{ date('Y') }}">
     @pushOnce('vites')
-        @vite(['resources/js/lib/boxicons.js', 'resources/js/addon/candidate-page.js', 'resources/css/addon/candidate.css'])
+        @vite(['resources/js/lib/boxicons.js', 'resources/js/addon/candidate-landing-page.js', 'resources/css/addon/candidate.css'])
     @endPushOnce
 
     <div class="container">
