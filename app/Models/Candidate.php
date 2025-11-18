@@ -16,6 +16,7 @@ class Candidate extends Model
      * @var list<string>
      */
     protected $fillable = [
+        'number',
         'head_name',
         'vice_name',
         'photo',
@@ -32,6 +33,7 @@ class Candidate extends Model
     {
         return [
             'id' => 'string',
+            'number' => 'integer',
             'head_name' => 'string',
             'vice_name' => 'string',
             'created_at' => 'datetime',
@@ -46,6 +48,14 @@ class Candidate extends Model
      */
     public function setCachePrefix(): string {
         return 'candidate.cache';
+    }
+
+    /**
+     * Get the full name attribute.
+     */
+    public function getNameAttribute(): string
+    {
+        return $this->head_name . ' & ' . $this->vice_name;
     }
 
     /**

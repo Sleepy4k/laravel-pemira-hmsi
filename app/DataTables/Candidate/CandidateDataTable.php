@@ -145,9 +145,6 @@ class CandidateDataTable extends DataTable
                 ->printable(false)
                 ->addClass('text-center')
                 ->hidden(),
-            Column::computed('DT_RowIndex')
-                ->title('No')
-                ->addClass('text-center'),
             Column::make('number')
                 ->title('Candidate Number')
                 ->addClass('text-center'),

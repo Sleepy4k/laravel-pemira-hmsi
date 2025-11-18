@@ -9,9 +9,8 @@ enum FileUploaderType: string
     use Enum;
 
     // Case section started
-    case PROFILE = 'profile';
     case SETTING = 'setting';
-    case DOCUMENT = 'document';
-    case REPORT = 'report';
-    case LETTER_TRANSACTION = 'document_transaction';
+    case CANDIDATE_PHOTO = 'candidate_photo';
+    case CANDIDATE_RESUME = 'candidate_resume';
+    case CANDIDATE_ATTACHMENT = 'candidate_attachment';
 }

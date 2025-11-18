@@ -11,4 +11,8 @@ enum UploadFileType: string
     // Case section started
     case FILE = 'files';
     case IMAGE = 'photos';
+
+    case CANDIDATE_PHOTO = 'photos/candidates';
+    case CANDIDATE_DOCUMENT = 'files/candidates/documents';
+    case CANDIDATE_ATTACHMENT = 'files/candidates/attachments';
 }
