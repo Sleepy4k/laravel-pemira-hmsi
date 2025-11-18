@@ -26,9 +26,14 @@ export default defineConfig({
                 'resources/js/addon/home-landing-page.js',
 
                 'resources/js/addon/signin-page.js',
+                'resources/js/addon/profile-page.js',
                 'resources/js/addon/home-page.js',
+                'resources/js/addon/admin-page.js',
+                'resources/js/addon/batch-page.js',
+                'resources/js/addon/session-page.js',
                 'resources/js/addon/candidate-page.js',
                 'resources/js/addon/create-candidate-page.js',
+                'resources/js/addon/update-candidate-page.js',
 
                 'resources/js/lib/boxicons.js',
                 'resources/js/lib/apexchart.js',
