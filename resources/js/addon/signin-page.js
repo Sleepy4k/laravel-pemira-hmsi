@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function showNotification(type, message) {
-        if (typeof Swal !== "undefined") {
+        if (typeof window.Toast !== "undefined") {
             window.Toast.fire({
                 icon: type,
                 title: message

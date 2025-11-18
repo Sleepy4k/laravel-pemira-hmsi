@@ -1,4 +1,4 @@
-<div class="absolute bottom-0 left-0 w-full p-4 bg-white border-t border-neutral-200">
+<div class="bottom-0 left-0 w-full p-4 bg-white border-t border-neutral-200">
     @if ($type === 'show')
         <div class="flex flex-col ml-3">
             <span class="text-gray-500 mb-1 mt-1">Created at: <span id="show-created-at"></span></span>
