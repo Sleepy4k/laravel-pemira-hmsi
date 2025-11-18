@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Support\AttributeEncryptor;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
@@ -35,8 +36,15 @@ class UserFactory extends Factory
             ]
         ];
 
-        return array_map(function ($user) use ($currentTime) {
+        $uuids = collect(range(1, count($data)))
+            ->map(fn() => (string) Str::uuid())
+            ->sort()
+            ->values()
+            ->all();
+
+        return array_map(function ($user) use ($currentTime, &$uuids) {
             return [
+                'id' => array_shift($uuids),
                 'name' => $user['name'],
                 'username' => AttributeEncryptor::encrypt($user['username']),
                 'password' => static::$password ??= Hash::make('password'),
