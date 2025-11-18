@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\Landing;
+use App\Http\Controllers\Dashboard\Admin;
+use App\Http\Controllers\Dashboard\Batch;
+use App\Http\Controllers\Dashboard\Session;
 use App\Http\Controllers\Dashboard\Profile;
 use App\Http\Controllers\Dashboard\Candidate;
 use App\Http\Controllers\Dashboard\HomeController;
@@ -39,6 +42,8 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('profile')->name('profile.')->group(function () {
         Route::get('/account', Profile\AccountController::class)->name('account');
+        Route::resource('/setting', Profile\SettingController::class)->only(['index', 'store']);
+        Route::resource('/security', Profile\SecurityController::class)->only(['index', 'store']);
     });
 
     Route::prefix('dashboard')->name('dashboard.')->group(function () {
@@ -48,17 +53,11 @@ Route::middleware('auth')->group(function () {
             return view('dashboard.voters.index');
         })->name('voters');
 
-        Route::get('/batches', function () {
-            return view('dashboard.batches.index');
-        })->name('batches');
-
-        Route::get('/sessions', function () {
-            return view('dashboard.sessions.index');
-        })->name('sessions');
-
-        Route::get('/admins', function () {
-            return view('dashboard.admins.index');
-        })->name('admins');
+        Route::resources([
+            '/admins' => Admin\AdminController::class,
+            '/batches' => Batch\BatchController::class,
+            '/sessions' => Session\SessionController::class,
+        ], ['except' => ['create', 'show', 'edit']]);
 
         Route::get('/settings', function () {
             return view('dashboard.settings.index');
