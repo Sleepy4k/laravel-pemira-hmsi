@@ -224,7 +224,7 @@ import 'datatables.net-responsive-dt';
 
         action: function (e, dt, button, config) {
             var url = _buildUrl(dt, 'print');
-            window.location = url;
+            window.open(url, '_blank');
         }
     };
 

@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const barEl = document.getElementById('barChart');
     if (barEl) {
         const barData = barEl.getAttribute('data-chart') || '[]';
+        const barCategories = barEl.getAttribute('data-categories') || '[]';
         window.renderChart(barEl, {
             series: JSON.parse(barData),
             chart: {
@@ -31,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
             },
             colors: ["#10B981", "#EF4444"],
             xaxis: {
-                categories: ["2020", "2021", "2022", "2023", "2024", "2025"],
+                categories: JSON.parse(barCategories),
                 labels: {
                     style: {
                         colors: "#616161",

@@ -109,18 +109,21 @@ class OffcanvasHandler {
      */
     _bindCreateRecord() {
         if (this.offcanvas.add) {
-            const createButtons = document.querySelector(this.offcanvas.add.triggerBtnId);
+            const createButtons = document.querySelector(
+                this.offcanvas.add.triggerBtnId
+            );
             if (createButtons) {
-                createButtons.addEventListener('click', (e) => {
+                createButtons.addEventListener("click", (e) => {
                     const targetId = this.offcanvas.add.id;
                     this._openOffcanvas(targetId);
                 });
             }
         } else {
-            const createButtons = document.getElementById('add-new-record-btn');
+            const createButtons = document.getElementById("add-new-record-btn");
             if (createButtons) {
-                createButtons.addEventListener('click', (e) => {
-                    const targetId = createButtons.getAttribute('data-target') || null;
+                createButtons.addEventListener("click", (e) => {
+                    const targetId =
+                        createButtons.getAttribute("data-target") || null;
                     this._openOffcanvas(targetId);
                 });
             }
@@ -138,28 +141,24 @@ class OffcanvasHandler {
         e.preventDefault();
         const form = $(formId);
 
-        if (form[0].checkValidity()) {
-            const formData = new FormData(form[0]);
-            const url = form.attr("action");
-            let method = form.attr("method") || "POST";
+        const formData = new FormData(form[0]);
+        const url = form.attr("action");
+        let method = form.attr("method") || "POST";
 
-            if (
-                ["PUT", "PATCH", "DELETE"].includes(method.toUpperCase()) &&
-                method.toUpperCase() !== "POST"
-            ) {
-                formData.append("_method", method.toUpperCase());
-                method = "POST"; // Use POST for non-POST methods
-            }
-
-            // Append CSRF token when formData does not already contain it
-            if (this.csrfToken && !formData.has("_token")) {
-                formData.append("_token", this.csrfToken);
-            }
-
-            this._sendFormData(url, method, formData, formId, actionType);
-        } else {
-            form.addClass("was-validated");
+        if (
+            ["PUT", "PATCH", "DELETE"].includes(method.toUpperCase()) &&
+            method.toUpperCase() !== "POST"
+        ) {
+            formData.append("_method", method.toUpperCase());
+            method = "POST"; // Use POST for non-POST methods
         }
+
+        // Append CSRF token when formData does not already contain it
+        if (this.csrfToken && !formData.has("_token")) {
+            formData.append("_token", this.csrfToken);
+        }
+
+        this._sendFormData(url, method, formData, formId, actionType);
     }
 
     /**
@@ -439,8 +438,10 @@ class OffcanvasHandler {
                 cancelButtonText: "No, cancel!",
                 confirmButtonText: "Yes, delete it!",
                 customClass: {
-                    confirmButton: 'bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200 mx-2 cursor-pointer',
-                    cancelButton: 'bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-4 rounded-lg transition-colors duration-200 mx-2 cursor-pointer',
+                    confirmButton:
+                        "bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200 mx-2 cursor-pointer",
+                    cancelButton:
+                        "bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-4 rounded-lg transition-colors duration-200 mx-2 cursor-pointer",
                 },
                 buttonsStyling: false,
             }).then((result) => {

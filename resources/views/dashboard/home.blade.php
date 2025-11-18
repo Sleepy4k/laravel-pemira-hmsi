@@ -66,7 +66,7 @@
 
     <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
         <div class="lg:col-span-3 bg-white rounded-xl shadow-sm border border-neutral-200 p-6">
-            <div id="barChart" data-chart="{{ json_encode($votesPerBatch) }}"></div>
+            <div id="barChart" data-chart="{{ json_encode($votesPerBatch) }}" data-categories="{{ json_encode($batches->pluck('name')) }}"></div>
         </div>
         <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-6">
             <div id="pieChart" data-chart="{{ json_encode($votingStatus) }}"></div>

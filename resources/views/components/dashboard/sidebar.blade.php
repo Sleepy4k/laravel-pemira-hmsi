@@ -26,13 +26,5 @@
                 @endif
             @endforeach
         </nav>
-
-        <div class="p-4 border-t border-neutral-200">
-            <button id="logout-button"
-                class="w-full text-left flex items-center space-x-3 rounded-lg p-3 text-body-md font-semibold text-neutral-700 hover:bg-error hover:text-white transition-all duration-200 cursor-pointer">
-                <box-icon name='exit'></box-icon>
-                <span>Logout</span>
-            </button>
-        </div>
     </div>
 </aside>

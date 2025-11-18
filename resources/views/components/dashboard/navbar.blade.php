@@ -31,15 +31,15 @@
                 </button>
 
                 <div id="profile-dropdown"
-                    class="hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-neutral-200 py-1 overflow-hidden">
+                    class="hidden absolute right-0 w-48 bg-white rounded-lg shadow-lg border border-neutral-200 overflow-hidden">
                     <a href="{{ route('profile.account') }}"
-                        class="flex items-center px-4 py-3 text-sm text-neutral-700 hover:bg-primary-50 hover:text-primary-600 transition-all duration-200 {{ request()->routeIs('profile.account') ? 'bg-primary-200 text-primary-600' : '' }}">
+                        class="flex items-center px-3 py-2 text-neutral-700 text-sm hover:bg-primary-700 hover:text-white transition-all duration-200 {{ request()->routeIs('profile.account') ? 'bg-primary-500 text-white' : '' }}">
                         <box-icon name='user' size='s' class="flex-shrink-0"></box-icon>
                         <span class="ml-3 mb-1">Profile</span>
                     </a>
                     <hr class="my-1 border-neutral-200">
                     <button id="dropdown-logout-button"
-                        class="w-full flex items-center px-4 py-3 text-sm text-error hover:bg-error-50 transition-all duration-200 cursor-pointer">
+                        class="w-full flex items-center px-3 py-2 text-sm text-error hover:bg-red-600 hover:text-white transition-all duration-200 cursor-pointer">
                         <box-icon name='exit' size='s' class="flex-shrink-0"></box-icon>
                         <span class="ml-3 mb-1">Logout</span>
                     </button>
