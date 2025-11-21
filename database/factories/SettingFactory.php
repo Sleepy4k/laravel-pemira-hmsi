@@ -48,6 +48,7 @@ class SettingFactory extends Factory
                 'group' => 'seo',
                 'key' => 'keywords',
                 'value' => 'PEMIRA, HMSI, TUP, Pemira HMSI, Himpunan Mahasiswa Sistem Informasi, Universitas Telkom Purwokerto, pemilihan, pemilu mahasiswa, calon ketua, calon pengurus, organisasi mahasiswa, kepemimpinan, mahasiswa sistem informasi, kampus, debat kandidat, visi misi, suara, kandidat, pendaftaran kandidat, kampanye, kegiatan kemahasiswaan, pemira elektronik, vote, election, student council',
+                'type' => 'text',
             ],
             [
                 'group' => 'seo',
@@ -58,6 +59,7 @@ class SettingFactory extends Factory
                 'group' => 'seo',
                 'key' => 'description',
                 'value' => 'Pemilihan Raya Himpunan Mahasiswa Sistem Informasi (PEMIRA HMSI) Universitas Telkom Purwokerto adalah sebuah acara tahunan yang diselenggarakan untuk memilih pengurus baru HMSI.',
+                'type' => 'text',
             ],
             [
                 'group' => 'seo',
@@ -70,6 +72,18 @@ class SettingFactory extends Factory
                 'key' => 'image_height',
                 'value' => 630,
                 'type' => 'integer',
+            ],
+            [
+                'group' => 'voting',
+                'key' => 'start',
+                'value' => $currentTime->year . '-11-24 08:00:00',
+                'type' => 'datetime',
+            ],
+            [
+                'group' => 'voting',
+                'key' => 'end',
+                'value' => $currentTime->year . '-11-24 16:00:00',
+                'type' => 'datetime',
             ],
         ];
 

@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
             BatchSeeder::class,
             VotingSessionSeeder::class,
             UserSeeder::class,
+            TimelineSeeder::class,
         ]);
     }
 }
