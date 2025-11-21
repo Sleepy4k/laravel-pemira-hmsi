@@ -65,4 +65,11 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+
+    const reloadPageBtn = document.getElementById('reload-page-btn');
+    if (reloadPageBtn) {
+        reloadPageBtn.addEventListener('click', function() {
+            location.reload();
+        });
+    }
 });

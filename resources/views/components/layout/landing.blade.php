@@ -56,7 +56,7 @@
         <div class="refresh-animation">
             <div class="refresh-logo">
                 <div class="logo-item logo-2">
-                    <img src="{{ asset('images/pemira.png') }}" alt="HIMASI Logo" loading="lazy">
+                    <img src="{{ $appSettings['app_logo'] }}" alt="HIMASI Logo" loading="lazy">
                 </div>
             </div>
         </div>
@@ -68,11 +68,11 @@
             <div class="shape shape3"></div>
         </div>
 
-        <x-landing.navbar />
+        <x-landing.navbar :logo="$appSettings['app_logo']" />
 
         {{ $slot }}
 
-        <x-landing.footer />
+        <x-landing.footer :logo="$appSettings['app_logo']" />
 
         <x-utils.noscript />
     </body>

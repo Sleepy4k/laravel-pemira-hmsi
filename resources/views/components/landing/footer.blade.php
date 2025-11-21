@@ -8,7 +8,7 @@
                         <img src="{{ asset('images/si.png') }}" alt="HIMASI Logo" loading="lazy" />
                     </div>
                     <div class="footer-logo-item footer-logo-2">
-                        <img src="{{ asset('images/pemira.png') }}" alt="PEMIRA Logo" loading="lazy" />
+                        <img src="{{ $logo }}" alt="PEMIRA Logo" loading="lazy" />
                     </div>
                 </div>
                 <div class="footer-brand-name">PEMIRA HMSI 2025</div>

@@ -5,7 +5,7 @@
                 <img src="{{ asset('images/si.png') }}" alt="HIMASI Logo" loading="lazy">
             </div>
             <div class="logo-item logo-2">
-                <img src="{{ asset('images/pemira.png') }}" alt="PEMIRA Logo" loading="lazy">
+                <img src="{{ $logo }}" alt="PEMIRA Logo" loading="lazy">
             </div>
         </div>
     </div>

@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     let completedCount = 0;
-    const today = new Date();
+    const header = document.querySelector('header[data-current-date]');
+    const today = new Date(header.getAttribute('data-current-date') + 'T00:00:00');
     const timelineItems = document.querySelectorAll('.timeline-item');
 
     timelineItems.forEach(item => {
@@ -9,8 +10,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (!startDateStr || !endDateStr) return;
 
-        const startDate = new Date(startDateStr + 'T00:00:00');
-        const endDate = new Date(endDateStr + 'T23:59:59');
+        const startDate = new Date(startDateStr);
+        const endDate = new Date(endDateStr);
 
         const badge = item.querySelector('.timeline-badge');
         const content = item.querySelector('.timeline-content');

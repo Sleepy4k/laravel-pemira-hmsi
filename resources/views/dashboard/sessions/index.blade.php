@@ -7,8 +7,8 @@
         data-routes='{
             "update": "{{ route('dashboard.sessions.update', ':id') }}",
             "destroy": "{{ route('dashboard.sessions.destroy', ':id') }}"
-        }'>
-    </header>
+        }'
+        data-voting-start="{{ $start_date }}" data-voting-end="{{ $end_date }}"></header>
 
     <div class="mb-8 flex items-center justify-between">
         <h1 class="text-3xl font-bold text-neutral-900">

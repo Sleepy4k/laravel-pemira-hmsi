@@ -56,4 +56,22 @@ document.addEventListener("DOMContentLoaded", function () {
             },
         });
     }
+
+    const header = document.querySelector('header[data-voting-start][data-voting-end]');
+    if (header) {
+        const votingStart = header.getAttribute('data-voting-start');
+        const votingEnd = header.getAttribute('data-voting-end');
+
+        const startTimeInputs = document.querySelectorAll('input[name="start_time"]');
+        startTimeInputs.forEach(input => {
+            input.setAttribute('min', votingStart);
+            input.setAttribute('max', votingEnd);
+        });
+
+        const endTimeInputs = document.querySelectorAll('input[name="end_time"]');
+        endTimeInputs.forEach(input => {
+            input.setAttribute('min', votingStart);
+            input.setAttribute('max', votingEnd);
+        });
+    }
 });

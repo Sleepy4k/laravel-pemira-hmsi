@@ -1,6 +1,6 @@
 <x-layout.landing title="Kandidat {{ date('Y') }}">
     @pushOnce('vites')
-        @vite(['resources/js/lib/boxicons.js', 'resources/js/addon/candidate-landing-page.js', 'resources/css/addon/candidate.css'])
+        @vite(['resources/css/addon/candidate-landing.css', 'resources/js/lib/boxicons.js', 'resources/js/addon/candidate-landing-page.js', 'resources/css/addon/candidate.css'])
     @endPushOnce
 
     <div class="container">
@@ -9,13 +9,13 @@
             <p>Pilih kandidat terbaik untuk masa depan yang lebih baik</p>
         </div>
 
-        @foreach ($candidates as $candidate)
+        @forelse ($candidates as $candidate)
             <div class="candidate-card">
                 <div class="card-content">
                     <div class="photo-section">
                         <div class="photo-wrapper">
                             <div class="candidate-number">{{ $candidate->number }}</div>
-                            <img src="{{ $candidate->photo }}" alt="Kandidat {{ $candidate->number}}">
+                            <img src="{{ $candidate->photo }}" alt="Kandidat {{ $candidate->number }}">
                         </div>
                         <div class="candidate-name">
                             <h3>{{ $candidate->name }}</h3>
@@ -69,7 +69,50 @@
                     </div>
                 </div>
             </div>
-        @endforeach
+        @empty
+            <div class="empty-state">
+                <div class="empty-card">
+                    <div class="empty-illustration" aria-hidden="true">
+                        <svg width="220" height="140" viewBox="0 0 220 140" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <rect x="4" y="10" width="212" height="120" rx="12" fill="#16a085" />
+                            <g opacity="1" transform="translate(18,18)">
+                                <circle cx="36" cy="36" r="28" fill="#E8F8F5" />
+                                <path d="M64 28c0 12-10 22-22 22s-22-10-22-22 10-22 22-22 22 10 22 22z"
+                                    fill="#16a085" />
+                                <rect x="84" y="10" width="88" height="14" rx="6" fill="#E6F7F2" />
+                                <rect x="84" y="34" width="62" height="10" rx="5" fill="#F0FAF8" />
+                                <rect x="84" y="52" width="88" height="10" rx="5" fill="#F0FAF8" />
+                                <rect x="84" y="74" width="52" height="10" rx="5" fill="#F0FAF8" />
+                            </g>
+                        </svg>
+                    </div>
+
+                    <h3 class="empty-title">Belum ada kandidat</h3>
+                    <p class="empty-text">
+                        Saat ini belum tersedia pasangan calon. Silakan muat ulang halaman atau kembali ke beranda.
+                        Jika Anda menduga ada kesalahan, laporkan ke panitia.
+                    </p>
+
+                    <div class="empty-actions">
+                        <button class="btn btn-primary" id="reload-page-btn" type="button"
+                            aria-label="Muat ulang halaman">
+                            Muat Ulang
+                        </button>
+
+                        <a href="{{ url('/') }}" class="btn btn-secondary" role="button"
+                            aria-label="Kembali ke beranda">
+                            Kembali ke Beranda
+                        </a>
+
+                        <a href="https://www.instagram.com/pemirahmsi.tup" class="btn btn-outline" role="button"
+                            aria-label="Laporkan ke panitia" target="_blank" rel="noopener">
+                            Laporkan ke Panitia
+                        </a>
+                    </div>
+                </div>
+            </div>
+        @endforelse
     </div>
 
     <div id="pdf-modal" class="pdf-modal">
