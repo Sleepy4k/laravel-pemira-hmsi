@@ -1,44 +1,18 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 import tailwindcss from '@tailwindcss/vite';
+import FastGlob from 'fast-glob';
 
 export default defineConfig({
     plugins: [
         laravel({
-            input: [
+            input: FastGlob.sync([
                 'resources/css/app.css',
                 'resources/js/app.js',
 
-                'resources/css/addon/landing.css',
-                'resources/css/addon/signin.css',
-                'resources/css/addon/candidate.css',
-
-                'resources/css/lib/datatable.css',
-
-                'resources/js/handler/offcanvas.js',
-
-                'resources/js/addon/layout-dashboard.js',
-                'resources/js/addon/layout-error.js',
-                'resources/js/addon/layout-landing.js',
-
-                'resources/js/addon/candidate-landing-page.js',
-                'resources/js/addon/timeline-landing-page.js',
-                'resources/js/addon/home-landing-page.js',
-
-                'resources/js/addon/signin-page.js',
-                'resources/js/addon/profile-page.js',
-                'resources/js/addon/home-page.js',
-                'resources/js/addon/admin-page.js',
-                'resources/js/addon/batch-page.js',
-                'resources/js/addon/session-page.js',
-                'resources/js/addon/candidate-page.js',
-                'resources/js/addon/create-candidate-page.js',
-                'resources/js/addon/update-candidate-page.js',
-
-                'resources/js/lib/boxicons.js',
-                'resources/js/lib/apexchart.js',
-                'resources/js/lib/datatable.js',
-            ],
+                'resources/css/**/*.css',
+                'resources/js/**/*.js',
+            ], { dot: false }),
             refresh: true,
         }),
         tailwindcss({
@@ -47,12 +21,22 @@ export default defineConfig({
             }
         }),
     ],
+    optimizeDeps: {
+        force: true,
+    },
     build: {
+        manifest: 'build-manifest.json',
+        outDir: 'public/assets',
+        assetsDir: 'bundle',
         chunkSizeWarningLimit: 600,
         rollupOptions: {
             output: {
                 manualChunks: {
                     axios: ['axios'],
+                    apexcharts: ['apexcharts'],
+                    datatables: ['datatables.net', 'datatables.net-dt'],
+                    datatables_buttons: ['datatables.net-buttons', 'datatables.net-buttons-dt', 'datatables.net-buttons/js/buttons.html5.js', 'datatables.net-buttons/js/buttons.print.js'],
+                    datatables_responsive: ['datatables.net-responsive', 'datatables.net-responsive-dt'],
                 }
             },
         },
