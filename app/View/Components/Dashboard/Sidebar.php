@@ -36,7 +36,7 @@ class Sidebar extends Component
             ],
             [
                 'name' => 'Voters',
-                'route' => 'dashboard.voters',
+                'route' => 'dashboard.voters.index',
                 'icon' => 'user',
                 'is_header' => false,
             ],

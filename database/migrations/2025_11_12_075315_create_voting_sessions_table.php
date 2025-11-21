@@ -15,8 +15,8 @@ return new class extends Migration
         Schema::create('voting_sessions', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignIdFor(Batch::class)->constrained()->cascadeOnDelete();
-            $table->timestamp('start_time');
-            $table->timestamp('end_time');
+            $table->timestamp('start_time')->nullable();
+            $table->timestamp('end_time')->nullable();
             $table->timestamps();
         });
     }

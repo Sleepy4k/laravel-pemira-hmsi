@@ -1,8 +1,8 @@
 <aside id="sidebar"
-    class="w-64 flex-shrink-0 bg-white shadow-lg fixed lg:static inset-y-0 left-0 z-40 transform -translate-x-full lg:translate-x-0 transition-transform duration-300">
+    class="w-64 flex-shrink-0 bg-white shadow-lg fixed lg:static inset-y-0 left-0 z-40 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 overflow-y-auto lg:overflow-y-visible">
     <div class="h-full flex flex-col">
         <a href="{{ route('landing') }}"
-            class="px-4 lg:px-6 py-3 flex items-center justify-center border-b border-neutral-200">
+            class="px-4 lg:px-6 py-3 flex items-center justify-center border-b border-neutral-200 sticky top-0 bg-white z-10">
             <img src="{{ $appLogo }}" alt="Logo" loading="lazy" class="w-10 h-12" />
             <div class='m-1'></div>
             <span class="text-xl font-bold text-primary-500">{{ $appName }}</span>
