@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Dashboard\Session;
 
 use App\Models\Batch;
+use App\Models\Setting;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -23,10 +24,14 @@ class UpdateRequest extends FormRequest
      */
     public function rules(): array
     {
+        $settings = Setting::where('group', 'voting')->get()->pluck('value', 'key')->toArray();
+        $start_date = date('Y-m-d\TH:i:s', strtotime($settings['start'] ?? now()));
+        $end_date = date('Y-m-d\TH:i:s', strtotime($settings['end'] ?? now()));
+
         return [
             'batch_id' => ['required', 'string', Rule::exists(Batch::class, 'id')],
-            'start_time' => ['required', 'date'],
-            'end_time' => ['required', 'date', 'after:start_time'],
+            'start_time' => ['required', 'date', 'after_or_equal:' . $start_date, 'before:' . $end_date],
+            'end_time' => ['required', 'date', 'after_or_equal:start_time', 'before_or_equal:' . $end_date],
         ];
     }
 }

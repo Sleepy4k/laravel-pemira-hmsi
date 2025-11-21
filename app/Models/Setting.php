@@ -111,6 +111,13 @@ class Setting extends Model
                     $rules[] = 'numeric';
                     $rules[] = 'min:0';
                     break;
+                case 'text':
+                    $rules[] = 'string';
+                    $rules[] = 'max:65535';
+                    break;
+                case 'datetime':
+                    $rules[] = 'date';
+                    break;
                 default:
                     $rules[] = 'string';
                     $rules[] = 'max:255';

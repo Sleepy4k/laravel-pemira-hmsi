@@ -7,8 +7,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\Session\StoreRequest;
 use App\Http\Requests\Dashboard\Session\UpdateRequest;
 use App\Models\Batch;
+use App\Models\Setting;
 use App\Models\VotingSession;
 use Illuminate\Support\Facades\Log;
+
+use function Symfony\Component\Clock\now;
 
 class SessionController extends Controller
 {
@@ -18,8 +21,11 @@ class SessionController extends Controller
     public function index(SessionDataTable $dataTable)
     {
         $batches = Batch::select('id', 'name')->get();
+        $settings = Setting::where('group', 'voting')->get()->pluck('value', 'key')->toArray();
+        $start_date = date('Y-m-d\TH:i:s', strtotime($settings['start'] ?? now()));
+        $end_date = date('Y-m-d\TH:i:s', strtotime($settings['end'] ?? now()));
 
-        return $dataTable->render('dashboard.sessions.index', compact('batches'));
+        return $dataTable->render('dashboard.sessions.index', compact('batches', 'start_date', 'end_date'));
     }
 
     /**

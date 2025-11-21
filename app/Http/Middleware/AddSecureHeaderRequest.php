@@ -5,7 +5,6 @@ namespace App\Http\Middleware;
 use App\Support\PermissionPolicy;
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Vite;
 use Symfony\Component\HttpFoundation\Response;
 
 class AddSecureHeaderRequest
@@ -17,8 +16,6 @@ class AddSecureHeaderRequest
      */
     public function handle(Request $request, Closure $next): Response
     {
-        Vite::useCspNonce(app('csp-nonce'));
-
         $response = $next($request);
 
         $permissions = (new PermissionPolicy())->configure();

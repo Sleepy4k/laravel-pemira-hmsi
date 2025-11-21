@@ -57,6 +57,12 @@ class Sidebar extends Component
                 'is_header' => false,
             ],
             [
+                'name' => 'Timelines',
+                'route' => 'dashboard.timelines.index',
+                'icon' => 'calendar-event',
+                'is_header' => false,
+            ],
+            [
                 'name' => 'Admin',
                 'route' => 'dashboard.admins.index',
                 'icon' => 'shield',
@@ -68,13 +74,13 @@ class Sidebar extends Component
             ],
             [
                 'name' => 'Application',
-                'route' => 'dashboard.settings',
+                'route' => 'dashboard.settings.index',
                 'icon' => 'cog',
                 'is_header' => false,
             ],
             [
                 'name' => 'Voting',
-                'route' => 'signin',
+                'route' => 'dashboard.voting.index',
                 'icon' => 'check-circle',
                 'is_header' => false,
             ],
