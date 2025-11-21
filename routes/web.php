@@ -4,7 +4,9 @@ use App\Http\Controllers\Landing;
 use App\Http\Controllers\Dashboard\Admin;
 use App\Http\Controllers\Dashboard\Batch;
 use App\Http\Controllers\Dashboard\Session;
+use App\Http\Controllers\Dashboard\Setting;
 use App\Http\Controllers\Dashboard\Profile;
+use App\Http\Controllers\Dashboard\TImeline;
 use App\Http\Controllers\Dashboard\Candidate;
 use App\Http\Controllers\Dashboard\HomeController;
 use App\Http\Controllers\Storage\ServeController;
@@ -47,24 +49,19 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::prefix('dashboard')->name('dashboard.')->group(function () {
-        Route::resource('/candidates', Candidate\CandidateController::class);
-
         Route::get('/voters', function () {
             return view('dashboard.voters.index');
         })->name('voters');
 
+        Route::resource('/candidates', Candidate\CandidateController::class);
+        Route::resource('/settings', Setting\SettingController::class)->only(['index', 'store', 'update']);
+
         Route::resources([
             '/admins' => Admin\AdminController::class,
             '/batches' => Batch\BatchController::class,
+            '/voting' => Setting\VotingController::class,
             '/sessions' => Session\SessionController::class,
+            '/timelines' => Timeline\TimelineController::class,
         ], ['except' => ['create', 'show', 'edit']]);
-
-        Route::get('/settings', function () {
-            return view('dashboard.settings.index');
-        })->name('settings');
-
-        Route::get('/profile', function () {
-            return view('dashboard.profile.index');
-        })->name('profile');
     });
 });
