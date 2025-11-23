@@ -3,6 +3,13 @@
         @vite(['resources/js/lib/boxicons.js', 'resources/css/addon/vote.css', 'resources/js/addon/vote-landing-page.js'])
     @endPushOnce
 
+    @if ($rateLimiter['remaining'] <= 0 && $rateLimiter['reset_at'])
+        <header
+            data-remaining="{{ $rateLimiter['remaining'] }}"
+            data-reset-at="{{ $rateLimiter['reset_at'] }}"
+        ></header>
+    @endif
+
     <div class="token-section" id="tokenSection">
         <div class="token-card">
             <div class="token-icon">

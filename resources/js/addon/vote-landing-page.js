@@ -68,4 +68,31 @@ document.addEventListener("DOMContentLoaded", function () {
         tokenInput.classList.remove("error");
         errorMessage.classList.remove("show");
     });
+
+    const header = document.querySelector("header[data-remaining][data-reset-at]");
+    if (header) {
+        const remaining = parseInt(header.getAttribute("data-remaining"), 10);
+        const resetAt = parseInt(header.getAttribute("data-reset-at"), 10) * 1000;
+
+        if (remaining <= 0) {
+            const now = Date.now();
+            const waitTime = resetAt - now;
+
+            if (waitTime > 0) {
+                verifyBtn.disabled = true;
+                let secondsLeft = Math.ceil(waitTime / 1000);
+
+                const interval = setInterval(() => {
+                    if (secondsLeft <= 0) {
+                        clearInterval(interval);
+                        verifyBtn.disabled = false;
+                        verifyBtn.innerText = "Verifikasi Token";
+                    } else {
+                        verifyBtn.innerText = `Coba lagi dalam ${secondsLeft} detik`;
+                        secondsLeft--;
+                    }
+                }, 1000);
+            }
+        }
+    }
 });
