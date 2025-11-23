@@ -34,11 +34,9 @@
 
         <div class="hero-buttons">
             <button class="btn-primary" id="vote-button" data-redirect="{{ route('vote.index') }}">
-                <box-icon name='check-circle' type='solid' color='white' size='sm'></box-icon>
                 Mulai Voting Sekarang
             </button>
             <button class="btn-secondary" id="view-candidates-btn" data-redirect="{{ route('candidates') }}">
-                <box-icon name='user-detail' color='#16a085' size='sm'></box-icon>
                 Lihat Kandidat
             </button>
         </div>
