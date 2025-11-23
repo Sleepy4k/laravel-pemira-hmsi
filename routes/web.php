@@ -24,8 +24,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', Landing\HomeController::class)->name('landing');
+Route::get('/about', Landing\AboutController::class)->name('about');
 Route::get('/timeline', Landing\TimelineController::class)->name('timeline');
 Route::get('/candidates', Landing\CandidateController::class)->name('candidates');
+
+Route::controller(Landing\VoteController::class)->group(function () {
+    Route::get('/vote', 'index')->name('vote.index');
+    Route::post('/vote/verify', 'verify')->name('vote.verify');
+    Route::get('/vote/thankyou', 'thankyou')->name('vote.thankyou');
+    Route::prefix('/vote/candidate')->group(function () {
+        Route::get('/{voter}', 'show')->name('vote.show');
+        Route::post('/{voter}/submit', 'store')->name('vote.store');
+    });
+});
 
 Route::get('storage/{path}', ServeController::class)->where('path', '.*')
     ->middleware('throttle:15,1');
@@ -52,6 +63,18 @@ Route::middleware('auth')->group(function () {
     Route::prefix('dashboard')->name('dashboard.')->group(function () {
         Route::resource('/candidates', Candidate\CandidateController::class);
         Route::resource('/settings', Setting\SettingController::class)->only(['index', 'store', 'update']);
+
+        Route::prefix('/voters')->name('voters.')->group(function () {
+            Route::controller(Voter\VoterDataController::class)->group(function () {
+                Route::post('/import', 'import')->name('import');
+                Route::get('/template', 'template')->name('template');
+            });
+
+            Route::controller(Voter\VoterTokenController::class)->group(function () {
+                Route::post('/{voter}/send-notification', 'sendNotification')->name('send-notification');
+                Route::post('/bulk-send-notification', 'bulkSendNotification')->name('bulk-send-notification');
+            });
+        });
 
         Route::resources([
             '/admins' => Admin\AdminController::class,
