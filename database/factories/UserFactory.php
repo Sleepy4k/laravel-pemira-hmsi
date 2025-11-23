@@ -27,12 +27,8 @@ class UserFactory extends Factory
         $currentTime = now();
         $data = [
             [
-                'name' => 'Primary Admin',
+                'name' => 'Admin HMSI',
                 'username' => 'admin',
-            ],
-            [
-                'name' => 'Secondary Admin',
-                'username' => 'admin2',
             ]
         ];
 

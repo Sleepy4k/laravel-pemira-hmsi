@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('voters', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->text('name');
-            $table->text('email')->unique();
+            $table->text('email');
             $table->text('vote_token');
             $table->boolean('has_voted')->default(false);
             $table->timestamp('voted_at')->nullable();
