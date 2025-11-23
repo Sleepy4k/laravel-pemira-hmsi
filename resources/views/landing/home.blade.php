@@ -4,12 +4,21 @@
     @endPushOnce
 
     <section class="hero">
-        <div class="floating-avatar avatar1">🗳️</div>
-        <div class="floating-avatar avatar2">👥</div>
-        <div class="floating-avatar avatar3">💡</div>
-        <div class="floating-avatar avatar4">✨</div>
+        <div class="floating-avatar avatar1">
+            <box-icon name='check-square' type='solid' color='#1abc9c'></box-icon>
+        </div>
+        <div class="floating-avatar avatar2">
+            <box-icon name='group' type='solid' color='#1abc9c'></box-icon>
+        </div>
+        <div class="floating-avatar avatar3">
+            <box-icon name='bulb' type='solid' color='#1abc9c'></box-icon>
+        </div>
+        <div class="floating-avatar avatar4">
+            <box-icon name='star' type='solid' color='#1abc9c'></box-icon>
+        </div>
 
         <div class="badge">
+            <box-icon name='calendar-event' color='#16a085' size='sm'></box-icon>
             <span>PEMIRA 2025</span>
         </div>
 
@@ -24,15 +33,22 @@
         </p>
 
         <div class="hero-buttons">
-            <button class="btn-primary" id="vote-button" data-redirect="{{ route('vote.index') }}">Mulai Voting Sekarang</button>
-            <button class="btn-secondary" id="view-candidates-btn" data-redirect="{{ route('candidates') }}">Lihat Kandidat</button>
+            <button class="btn-primary" id="vote-button" data-redirect="{{ route('vote.index') }}">
+                <box-icon name='check-circle' type='solid' color='white' size='sm'></box-icon>
+                Mulai Voting Sekarang
+            </button>
+            <button class="btn-secondary" id="view-candidates-btn" data-redirect="{{ route('candidates') }}">
+                <box-icon name='user-detail' color='#16a085' size='sm'></box-icon>
+                Lihat Kandidat
+            </button>
         </div>
     </section>
 
     <section class="faq-container">
         <div class="faq-header">
             <div class="faq-badge">
-                <i class="fas fa-question-circle"></i> Frequently Asked Questions
+                <box-icon name='help-circle' color='#16a085'></box-icon>
+                <span>Frequently Asked Questions</span>
             </div>
             <h1 class="faq-title">Ada Pertanyaan?</h1>
             <p class="faq-subtitle">Temukan jawaban untuk pertanyaan umum seputar PEMIRA HMSI 2025. Jika pertanyaan Anda
@@ -43,10 +59,14 @@
             <div class="faq-item" data-category="umum">
                 <div class="faq-question">
                     <div class="question-text">
-                        <div class="question-icon"><box-icon name='info-circle' color='#16a085'></box-icon></div>
+                        <div class="question-icon">
+                            <box-icon name='info-circle' color='#16a085'></box-icon>
+                        </div>
                         <div class="question-title">Apa itu PEMIRA HMSI?</div>
                     </div>
-                    <div class="toggle-icon"><box-icon name='chevron-down' color='#16a085'></box-icon></div>
+                    <div class="toggle-icon">
+                        <box-icon name='chevron-down' color='#16a085'></box-icon>
+                    </div>
                 </div>
                 <div class="faq-answer">
                     <div class="answer-content">
@@ -66,7 +86,9 @@
                         </div>
                         <div class="question-title">Kapan PEMIRA 2025 dilaksanakan?</div>
                     </div>
-                    <div class="toggle-icon"><box-icon name='chevron-down' color='#16a085'></box-icon></div>
+                    <div class="toggle-icon">
+                        <box-icon name='chevron-down' color='#16a085'></box-icon>
+                    </div>
                 </div>
                 <div class="faq-answer">
                     <div class="answer-content">
@@ -79,10 +101,14 @@
             <div class="faq-item" data-category="umum">
                 <div class="faq-question">
                     <div class="question-text">
-                        <div class="question-icon"><box-icon name='user' color='#16a085'></box-icon></div>
+                        <div class="question-icon">
+                            <box-icon name='user' color='#16a085'></box-icon>
+                        </div>
                         <div class="question-title">Siapa saja yang berhak mengikuti PEMIRA?</div>
                     </div>
-                    <div class="toggle-icon"><box-icon name='chevron-down' color='#16a085'></box-icon></div>
+                    <div class="toggle-icon">
+                        <box-icon name='chevron-down' color='#16a085'></box-icon>
+                    </div>
                 </div>
                 <div class="faq-answer">
                     <div class="answer-content">
@@ -100,10 +126,14 @@
             <div class="faq-item" data-category="pendaftaran">
                 <div class="faq-question">
                     <div class="question-text">
-                        <div class="question-icon"><box-icon name='user-plus' color='#16a085'></box-icon></div>
+                        <div class="question-icon">
+                            <box-icon name='user-plus' color='#16a085'></box-icon>
+                        </div>
                         <div class="question-title">Bagaimana cara mendaftar sebagai kandidat?</div>
                     </div>
-                    <div class="toggle-icon"><box-icon name='chevron-down' color='#16a085'></box-icon></div>
+                    <div class="toggle-icon">
+                        <box-icon name='chevron-down' color='#16a085'></box-icon>
+                    </div>
                 </div>
                 <div class="faq-answer">
                     <div class="answer-content">
@@ -122,10 +152,14 @@
             <div class="faq-item" data-category="voting">
                 <div class="faq-question">
                     <div class="question-text">
-                        <div class="question-icon"><box-icon name='upvote' color='#16a085'></box-icon></div>
+                        <div class="question-icon">
+                            <box-icon name='upvote' color='#16a085'></box-icon>
+                        </div>
                         <div class="question-title">Bagaimana cara melakukan voting?</div>
                     </div>
-                    <div class="toggle-icon"><box-icon name='chevron-down' color='#16a085'></box-icon></div>
+                    <div class="toggle-icon">
+                        <box-icon name='chevron-down' color='#16a085'></box-icon>
+                    </div>
                 </div>
                 <div class="faq-answer">
                     <div class="answer-content">
@@ -144,10 +178,14 @@
             <div class="faq-item" data-category="voting">
                 <div class="faq-question">
                     <div class="question-text">
-                        <div class="question-icon"><box-icon name='lock' color='#16a085'></box-icon></div>
+                        <div class="question-icon">
+                            <box-icon name='lock-alt' type='solid' color='#16a085'></box-icon>
+                        </div>
                         <div class="question-title">Apakah voting dilakukan secara rahasia?</div>
                     </div>
-                    <div class="toggle-icon"><box-icon name='chevron-down' color='#16a085'></box-icon></div>
+                    <div class="toggle-icon">
+                        <box-icon name='chevron-down' color='#16a085'></box-icon>
+                    </div>
                 </div>
                 <div class="faq-answer">
                     <div class="answer-content">
@@ -161,10 +199,14 @@
             <div class="faq-item" data-category="voting">
                 <div class="faq-question">
                     <div class="question-text">
-                        <div class="question-icon"><box-icon name='trophy' color='#16a085'></box-icon></div>
+                        <div class="question-icon">
+                            <box-icon name='trophy' type='solid' color='#16a085'></box-icon>
+                        </div>
                         <div class="question-title">Bagaimana cara menentukan pemenang?</div>
                     </div>
-                    <div class="toggle-icon"><box-icon name='chevron-down' color='#16a085'></box-icon></div>
+                    <div class="toggle-icon">
+                        <box-icon name='chevron-down' color='#16a085'></box-icon>
+                    </div>
                 </div>
                 <div class="faq-answer">
                     <div class="answer-content">
@@ -182,10 +224,14 @@
             <div class="faq-item" data-category="voting">
                 <div class="faq-question">
                     <div class="question-text">
-                        <div class="question-icon"><box-icon name='question-mark' color='#16a085'></box-icon></div>
+                        <div class="question-icon">
+                            <box-icon name='error-circle' color='#16a085'></box-icon>
+                        </div>
                         <div class="question-title">Apa yang harus dilakukan jika mengalami kendala saat voting?</div>
                     </div>
-                    <div class="toggle-icon"><box-icon name='chevron-down' color='#16a085'></box-icon></div>
+                    <div class="toggle-icon">
+                        <box-icon name='chevron-down' color='#16a085'></box-icon>
+                    </div>
                 </div>
                 <div class="faq-answer">
                     <div class="answer-content">
@@ -204,10 +250,14 @@
             <div class="faq-item" data-category="umum">
                 <div class="faq-question">
                     <div class="question-text">
-                        <div class="question-icon"><box-icon name='phone' color='#16a085'></box-icon></div>
+                        <div class="question-icon">
+                            <box-icon name='phone' color='#16a085'></box-icon>
+                        </div>
                         <div class="question-title">Bagaimana cara menghubungi panitia PEMIRA?</div>
                     </div>
-                    <div class="toggle-icon"><box-icon name='chevron-down' color='#16a085'></box-icon></div>
+                    <div class="toggle-icon">
+                        <box-icon name='chevron-down' color='#16a085'></box-icon>
+                    </div>
                 </div>
                 <div class="faq-answer">
                     <div class="answer-content">
@@ -224,7 +274,7 @@
         </div>
 
         <div class="no-results" id="noResults">
-            <i class="fas fa-search"></i>
+            <box-icon name='search-alt' size='lg' color='rgba(26, 188, 156, 0.3)'></box-icon>
             <h3>Tidak ada hasil ditemukan</h3>
             <p>Coba gunakan kata kunci yang berbeda</p>
         </div>

@@ -36,7 +36,7 @@
                             <box-icon name='envelope' color='#16a085'></box-icon>
                         </div>
                         <div class="contact-text">
-                            <a href="mailto:pemira@himasi.ac.id">pemira@himasi.ac.id</a>
+                            <a href="mailto:pemirahmsi@gmail.com">pemirahmsi@gmail.com</a>
                         </div>
                     </div>
                     <div class="contact-item">
@@ -44,7 +44,7 @@
                             <box-icon name='phone' color='#16a085'></box-icon>
                         </div>
                         <div class="contact-text">
-                            <a href="https://wa.me/6281234567890">+62 812-3456-7890</a>
+                            <a href="https://wa.me/6281225254962">+62 812-2525-4962</a>
                         </div>
                     </div>
                     <div class="contact-item">
@@ -52,7 +52,7 @@
                             <box-icon name='instagram' type="logo" color='#16a085'></box-icon>
                         </div>
                         <div class="contact-text">
-                            <a href="https://instagram.com/hmsi" target="_blank" rel="noopener">@pemirahmsi</a>
+                            <a href="https://instagram.com/pemirahmsi.tup" target="_blank" rel="noopener">@pemirahmssi.tup</a>
                         </div>
                     </div>
                 </div>
