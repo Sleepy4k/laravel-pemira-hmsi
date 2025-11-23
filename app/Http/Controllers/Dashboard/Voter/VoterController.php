@@ -8,28 +8,12 @@ use App\Http\Requests\Dashboard\Voter\StoreRequest;
 use App\Http\Requests\Dashboard\Voter\UpdateRequest;
 use App\Models\Batch;
 use App\Models\Voter;
+use App\Support\AttributeEncryptor;
+use App\Support\GenerateVoteToken;
 use Illuminate\Support\Facades\Log;
 
 class VoterController extends Controller
 {
-    /**
-     * Generate a unique vote token based on the voter's email.
-     */
-    private function generateVoteToken(string $email): string
-    {
-        $emailPrefix = strstr($email, '@', true);
-        $lettersOnly = preg_replace('/[^a-zA-Z]/', '', str_shuffle($emailPrefix));
-        $lettersOnly = str_pad($lettersOnly, 3, 'X');
-
-        $len = strlen($lettersOnly);
-        $salt = $lettersOnly[0] . $lettersOnly[(int)($len / 2)] . $lettersOnly[$len - 1];
-
-        $yearHex = str_pad(dechex((int) date('Y')), 4, '0', STR_PAD_LEFT);
-        $randomString = substr(bin2hex(random_bytes(2)), 0, 4);
-
-        return strtoupper("{$salt}-{$yearHex}-{$randomString}");
-    }
-
     /**
      * Display a listing of the resource.
      */
@@ -47,8 +31,15 @@ class VoterController extends Controller
     {
         $data = $request->validated();
 
+        if (Voter::where('email', AttributeEncryptor::encrypt($data['email']))->exists()) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Voter with this email already exists.',
+            ], 409);
+        }
+
         try {
-            $data['vote_token'] = $this->generateVoteToken($data['email']);
+            $data['vote_token'] = GenerateVoteToken::generate($data['email']);
             $data = Voter::create($data);
 
             return response()->json([
@@ -71,6 +62,13 @@ class VoterController extends Controller
     public function update(UpdateRequest $request, Voter $voter)
     {
         $data = $request->validated();
+
+        if (Voter::where('email', AttributeEncryptor::encrypt($data['email']))->where('id', '!=', $voter->id)->exists()) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Another voter with this email already exists.',
+            ], 409);
+        }
 
         try {
             $voter->update($data);

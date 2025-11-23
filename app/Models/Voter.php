@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Casts\AsEncrypt;
-use App\Casts\AsHash;
 use App\Concerns\HasUuid;
 use App\Concerns\MakeCacheable;
 use Illuminate\Database\Eloquent\Model;
@@ -35,8 +34,8 @@ class Voter extends Model
     {
         return [
             'id' => 'string',
-            'name' => AsHash::class,
-            'email' => AsHash::class,
+            'name' => AsEncrypt::class,
+            'email' => AsEncrypt::class,
             'vote_token' => AsEncrypt::class,
             'has_voted' => 'boolean',
             'voted_at' => 'datetime',
@@ -56,25 +55,18 @@ class Voter extends Model
     }
 
     /**
+     * Route notifications for the voter.
+     */
+    public function routeNotificationFor()
+    {
+        return $this->email;
+    }
+
+    /**
      * Get the batch that owns the voter.
      */
     public function batch()
     {
         return $this->belongsTo(Batch::class, 'batch_id');
-    }
-
-    /**
-     * Get the voting session associated with the voter through batch.
-     */
-    public function votingSession()
-    {
-        return $this->hasOneThrough(
-            VotingSession::class,
-            Batch::class,
-            'id', // Foreign key on the batches table...
-            'id', // Foreign key on the voting_sessions table...
-            'batch_id', // Local key on the voters table...
-            'id' // Local key on the batches table...
-        );
     }
 }

@@ -2,10 +2,14 @@
 
 namespace App\Models;
 
+use App\Concerns\HasUuid;
+use App\Concerns\MakeCacheable;
 use Illuminate\Database\Eloquent\Model;
 
 class Vote extends Model
 {
+    use HasUuid, MakeCacheable;
+
     /**
      * The attributes that are mass assignable.
      *

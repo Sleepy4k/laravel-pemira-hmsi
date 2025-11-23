@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Models\Batch;
+use App\Models\Candidate;
 use App\Models\Voter;
 use Illuminate\Http\Request;
 
@@ -14,10 +15,11 @@ class HomeController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $votes = Voter::select('id', 'has_voted')
+        $votes = Voter::select('id', 'has_voted', 'batch_id')
             ->with('batch:id')
             ->get();
 
+        $totalVoters = $votes->count();
         $votingStatus = [
             'hasVoted' => $votes->where('has_voted', true)->count(),
             'notVoted' => $votes->where('has_voted', false)->count(),
@@ -41,6 +43,27 @@ class HomeController extends Controller
             $batches = Batch::select('name')->orderBy('name')->get();
         }
 
-        return view('dashboard.home', compact('votesPerBatch', 'votingStatus', 'batches'));
+        $candidates = Candidate::withCount('votes')->get();
+        $candidateCategories = $candidates->map(function ($candidate) {
+            return $candidate->name . ' (' . $candidate->number . ')';
+        })->toArray();
+
+        $votesPerCandidate = [
+            [
+                'name' => 'Votes',
+                'data' => $candidates->pluck('votes_count')->toArray(),
+            ]
+        ];
+
+        $votesPerCandidateForPie = $candidates->mapWithKeys(function ($candidate) {
+            return [$candidate->name => $candidate->votes_count];
+        })->toArray();
+
+        return view('dashboard.home', compact(
+            'votesPerBatch', 'votingStatus',
+            'batches', 'totalVoters',
+            'candidates', 'votesPerCandidate',
+            'candidateCategories', 'votesPerCandidateForPie'
+        ));
     }
 }

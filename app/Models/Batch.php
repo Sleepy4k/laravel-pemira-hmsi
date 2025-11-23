@@ -51,7 +51,7 @@ class Batch extends Model
      */
     public function votingSession()
     {
-        return $this->hasOne(VotingSession::class, 'batch_id');
+        return $this->hasOne(VotingSession::class, 'batch_id', 'id');
     }
 
     /**

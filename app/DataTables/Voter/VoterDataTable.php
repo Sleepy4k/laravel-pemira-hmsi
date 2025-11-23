@@ -32,6 +32,12 @@ class VoterDataTable extends DataTable
                 'target' => '#edit-record',
                 'color' => 'primary-600',
             ],
+            'send-notification' => [
+                'class' => 'send-notification-btn',
+                'icon' => 'envelope',
+                'target' => null,
+                'color' => 'green-600',
+            ],
             'delete' => [
                 'class' => 'delete-record',
                 'icon' => 'trash',
