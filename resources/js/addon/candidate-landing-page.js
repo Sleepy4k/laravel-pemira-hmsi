@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         modalContent.innerHTML = `
             <span class="close-button" id="close-pdf-modal">&times;</span>
-            <object data="${url}" type="application/pdf" width="100%" height="100%">
+            <object data="${url}" width="100%" height="100%">
                 <p class="pdf-error-message">Something went wrong while loading the PDF file. You can <a href="${url}" target="_blank" rel="noopener">click here to download the PDF file</a>.</p>
             </object>
         `;

@@ -22,7 +22,7 @@
                 <h3>Informasi</h3>
                 <ul class="footer-links">
                     <li><a href="{{ route('landing') }}">Beranda</a></li>
-                    <li><a href="#">Tentang</a></li>
+                    <li><a href="{{ route('about') }}">Tentang</a></li>
                     <li><a href="{{ route('timeline') }}">Timeline</a></li>
                     <li><a href="{{ route('candidates') }}">Kandidat</a></li>
                 </ul>

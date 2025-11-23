@@ -1,6 +1,6 @@
 <x-layout.landing title="Timeline {{ date('Y') }}">
     @pushOnce('vites')
-        @vite(['resources/js/lib/boxicons.js', 'resources/js/addon/timeline-landing-page.js'])
+        @vite(['resources/js/lib/boxicons.js', 'resources/css/addon/timeline.css', 'resources/js/addon/timeline-landing-page.js'])
     @endPushOnce
 
     <header data-current-date="{{ $currentDate }}"></header>

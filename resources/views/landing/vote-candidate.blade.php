@@ -1,6 +1,6 @@
-<x-layout.landing title="Kandidat {{ date('Y') }}">
+<x-layout.landing title="Pemilihan Kandidat {{ date('Y') }}">
     @pushOnce('vites')
-        @vite(['resources/js/lib/boxicons.js', 'resources/css/addon/candidate.css', 'resources/js/addon/candidate-landing-page.js'])
+        @vite(['resources/js/lib/boxicons.js', 'resources/css/addon/candidate.css', 'resources/js/addon/candidate-landing-page.js', 'resources/js/addon/vote-candidate-page.js'])
     @endPushOnce
 
     <div class="container">
@@ -65,6 +65,10 @@
                             data-url="{{ $candidate->attachment }}">
                             <box-icon name='file-pdf' type='solid' color='#16a085'></box-icon>
                             <span>Visi Misi & Proker</span>
+                        </button>
+                        <button class="btn btn-vote" id="vote-candidate" data-candidate-id="{{ $candidate->id }}" data-vote-url="{{ route('vote.store', ['voter' => $voter->id]) }}">
+                            <box-icon name='check-circle' type='solid' color='#ffffff'></box-icon>
+                            <span>Pilih Kandidat Ini</span>
                         </button>
                     </div>
                 </div>

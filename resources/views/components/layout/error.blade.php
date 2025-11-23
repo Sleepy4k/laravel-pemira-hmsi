@@ -75,15 +75,15 @@
                         </div>
 
                         <div class="mt-3 flex flex-wrap gap-3">
-                            <button id="back-btn" data-href="{{ url()->previous() }}" class="inline-flex items-center px-4 py-2 bg-teal-600 text-white rounded-md shadow-sm hover:bg-teal-700 transition" style="display: none;">
+                            <button id="back-btn" data-href="{{ url()->previous() }}" class="inline-flex items-center px-4 py-2 bg-teal-600 text-white rounded-md shadow-sm hover:bg-teal-700 transition cursor-pointer" style="display: none;">
                                 ← Back
                             </button>
 
-                            <button id="home-btn" data-href="{{ route('landing') }}" class="inline-flex items-center px-4 py-2 border border-teal-600 text-teal-700 rounded-md bg-white hover:bg-teal-50 transition">
+                            <button id="home-btn" data-href="{{ route('landing') }}" class="inline-flex items-center px-4 py-2 border border-teal-600 text-teal-700 rounded-md bg-white hover:bg-teal-50 transition cursor-pointer">
                                 Home
                             </button>
 
-                            <button id="retry-btn" class="inline-flex items-center px-4 py-2 bg-cyan-50 text-cyan-800 border border-cyan-300 rounded-md hover:bg-cyan-100 transition">
+                            <button id="retry-btn" class="inline-flex items-center px-4 py-2 bg-cyan-50 text-cyan-800 border border-cyan-300 rounded-md hover:bg-cyan-100 transition cursor-pointer">
                                 Retry
                             </button>
                         </div>

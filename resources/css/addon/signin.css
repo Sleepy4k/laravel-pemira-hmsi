@@ -162,7 +162,7 @@ body::before {
     justify-content: center;
     align-items: center;
     z-index: 9999;
-    animation: fadeOut 1.5s ease-in-out 1.5s forwards;
+    animation: fadeOut 0.5s ease-in-out 0.5s forwards;
 }
 
 .refresh-logo {
@@ -174,7 +174,7 @@ body::before {
 .refresh-logo .logo-item {
     width: 80px;
     height: 80px;
-    animation: bounce 1.5s ease-in-out infinite, rotate 3s linear infinite;
+    animation: bounce 1.5s ease-in-out infinite, rotate 2s linear infinite;
 }
 
 .refresh-logo .logo-1 {
@@ -182,11 +182,11 @@ body::before {
 }
 
 .refresh-logo .logo-2 {
-    animation-delay: 0.3s;
+    animation-delay: 0.15s;
 }
 
 .refresh-logo .logo-3 {
-    animation-delay: 0.6s;
+    animation-delay: 0.3s;
 }
 
 @keyframes fadeOut {

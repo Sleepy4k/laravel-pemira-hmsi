@@ -1,27 +1,44 @@
 <x-layout.dashboard title="Voters">
     @pushOnce('vites')
-        @vite(['resources/css/lib/datatable.css', 'resources/js/lib/datatable.js', 'resources/js/handler/offcanvas.js', 'resources/js/addon/voter-page.js'])
+        @vite(['resources/css/lib/datatable.css', 'resources/js/lib/datatable.js', 'resources/js/handler/offcanvas.js'])
     @endPushOnce
 
     <header data-debug="{{ config('app.debug') ? 'true' : 'false' }}"
         data-routes='{
             "update": "{{ route('dashboard.voters.update', ':id') }}",
             "destroy": "{{ route('dashboard.voters.destroy', ':id') }}"
-        }'></header>
+        }'
+        data-import-url="{{ route('dashboard.voters.import') }}"
+        data-send-bulk-notification-url="{{ route('dashboard.voters.bulk-send-notification') }}"
+        data-send-notification-url="{{ route('dashboard.voters.send-notification', ':id') }}">
+    </header>
 
     <div class="mb-8 flex items-center justify-between">
         <h1 class="text-3xl font-bold text-neutral-900">
             List of Voters
         </h1>
-        <button id="add-new-record-btn" type="button" data-target="#add-new-record"
-            class="inline-flex items-center gap-2 bg-primary-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-primary-700 transition-colors cursor-pointer">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd"
-                    d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
-                    clip-rule="evenodd" />
-            </svg>
-            Voter
-        </button>
+        <div class="flex items-center gap-4">
+            <button id="bulk-send-notification-btn"
+                class="inline-flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-green-700 transition-colors cursor-pointer">
+                <box-icon name="envelope" class="w-5 h-5" color="white"></box-icon>
+                Send Notifications
+            </button>
+            <a href="{{ route('dashboard.voters.template') }}"
+                class="inline-flex items-center gap-2 bg-primary-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-primary-700 transition-colors">
+                <box-icon name="download" class="w-5 h-5" color="white"></box-icon>
+                Template
+            </a>
+            <button id="import-btn" type="button" data-target="#import-modal"
+                class="inline-flex items-center gap-2 bg-primary-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-primary-700 transition-colors cursor-pointer">
+                <box-icon name="upload" class="w-5 h-5" color="white"></box-icon>
+                Import
+            </button>
+            <button id="add-new-record-btn" type="button" data-target="#add-new-record"
+                class="inline-flex items-center gap-2 bg-primary-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-primary-700 transition-colors cursor-pointer">
+                <box-icon name="plus" class="w-5 h-5" color="white"></box-icon>
+                Voter
+            </button>
+        </div>
     </div>
 
     {{ $dataTable->table() }}
@@ -111,5 +128,6 @@
 
     @pushOnce('scripts')
         {{ $dataTable->scripts(attributes: ['type' => 'module', 'nonce' => app('csp-nonce')]) }}
+        @vite(['resources/js/addon/voter-page.js'])
     @endPushOnce
 </x-layout.dashboard>

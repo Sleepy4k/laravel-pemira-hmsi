@@ -24,7 +24,7 @@
         </p>
 
         <div class="hero-buttons">
-            <button class="btn-primary">Mulai Voting Sekarang</button>
+            <button class="btn-primary" id="vote-button" data-redirect="{{ route('vote.index') }}">Mulai Voting Sekarang</button>
             <button class="btn-secondary" id="view-candidates-btn" data-redirect="{{ route('candidates') }}">Lihat Kandidat</button>
         </div>
     </section>

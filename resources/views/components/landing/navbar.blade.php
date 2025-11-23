@@ -12,7 +12,7 @@
 
     <ul class="nav-links">
         <li><a href="{{ route('landing') }}" class="{{ request()->routeIs('landing') ? 'active' : '' }}">Beranda</a></li>
-        <li><a href="#" class="{{ request()->routeIs('about') ? 'active' : '' }}">Tentang</a></li>
+        <li><a href="{{ route('about') }}" class="{{ request()->routeIs('about') ? 'active' : '' }}">Tentang</a></li>
         <li><a href="{{ route('timeline') }}" class="{{ request()->routeIs('timeline') ? 'active' : '' }}">Timeline</a></li>
         <li><a href="{{ route('candidates') }}" class="{{ request()->routeIs('candidates') ? 'active' : '' }}">Kandidat</a></li>
     </ul>
@@ -23,6 +23,6 @@
         @else
             <button class="btn-login" id="login-button" data-redirect="{{ route('signin') }}">Masuk</button>
         @endif
-        <button class="btn-vote">Mulai Voting</button>
+        <button class="btn-vote" id="vote-button" data-redirect="{{ route('vote.index') }}">Mulai Voting</button>
     </div>
 </nav>

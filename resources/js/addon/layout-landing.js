@@ -44,4 +44,16 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         });
     }
+
+    const voteBtn = document.querySelectorAll("#vote-button");
+    if (voteBtn) {
+        voteBtn.forEach(button => {
+            button.addEventListener("click", function () {
+                const redirectUrl = button.getAttribute("data-redirect");
+                if (redirectUrl) {
+                    window.location.href = redirectUrl;
+                }
+            });
+        });
+    }
 });
