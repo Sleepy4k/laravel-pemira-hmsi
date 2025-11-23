@@ -5,7 +5,7 @@ return [
      * DataTables JavaScript global namespace.
      */
 
-    'namespace' => 'LaravelDataTables',
+    'namespace' => 'NakaDataTables',
 
     /*
      * Default table attributes when generating the table.
