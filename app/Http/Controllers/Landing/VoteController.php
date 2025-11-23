@@ -11,16 +11,33 @@ use App\Support\AttributeEncryptor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Validation\Rule;
 
 class VoteController extends Controller
 {
     /**
+     * Create a new controller instance.
+     */
+    public function __construct(
+        protected array $rateLimiter = [],
+        protected ?string $rateLimiterKey = null,
+    ) {
+        $this->rateLimiterKey = 'voting:' . request()->ip();
+        $this->rateLimiter = [
+            'reset_at' => RateLimiter::availableIn($this->rateLimiterKey),
+            'remaining' => RateLimiter::remaining($this->rateLimiterKey, 5),
+        ];
+    }
+
+    /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('landing.vote');
+        $rateLimiter = $this->rateLimiter;
+
+        return view('landing.vote', compact('rateLimiter'));
     }
 
     /**
@@ -106,6 +123,16 @@ class VoteController extends Controller
      */
     public function verify(Request $request)
     {
+        if (RateLimiter::tooManyAttempts($this->rateLimiterKey, 5)) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Too many verify attempts. Please try again later.',
+                'data' => $this->rateLimiter,
+            ], 429);
+        }
+
+        RateLimiter::hit($this->rateLimiterKey, 120);
+
         $request->validate([
             'token' => ['required', 'string', 'min:10', 'max:15'],
         ]);
