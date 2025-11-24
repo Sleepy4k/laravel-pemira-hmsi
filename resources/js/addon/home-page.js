@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     color: '#333'
                 }
             },
-            series: Object.values(pieData),
+            series: Object.values(pieData)?.map(val => parseInt(val)),
             labels: Object.keys(pieData),
             colors: colorPalette,
             legend: {
