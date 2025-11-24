@@ -16,7 +16,7 @@ class HomeController extends Controller
     public function __invoke(Request $request)
     {
         $votes = Voter::select('id', 'has_voted', 'batch_id')
-            ->with('batch:id')
+            ->with('batch:id,name')
             ->get();
 
         $totalVoters = $votes->count();
@@ -25,7 +25,9 @@ class HomeController extends Controller
             'notVoted' => $votes->where('has_voted', false)->count(),
         ];
 
-        $votesGroupedByBatch = $votes->groupBy('batch.id');
+        $votesGroupedByBatch = $votes->groupBy('batch.id')->sortBy(function ($group, $key) {
+            return $group->first()->batch->name;
+        });
         $votesPerBatch = [
             ['name' => 'Voted', 'data' => []],
             ['name' => 'Not Voted', 'data' => []],
