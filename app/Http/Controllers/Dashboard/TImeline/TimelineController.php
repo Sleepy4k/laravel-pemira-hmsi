@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Dashboard\TImeline;
+namespace App\Http\Controllers\Dashboard\Timeline;
 
 use App\DataTables\Timeline\TimelineDataTable;
 use App\Http\Controllers\Controller;
