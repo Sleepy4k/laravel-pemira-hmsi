@@ -64,28 +64,30 @@
         </div>
     </div>
 
-    <div class="flex flex-col gap-6 mb-8">
-        <div class="flex flex-col md:flex-row gap-6">
-            @foreach ($votesPerCandidateForPie as $candidate => $totalVotes)
-                <div
-                    class="flex-1 bg-white rounded-xl shadow-sm border border-neutral-200 p-6 hover:shadow-md transition-shadow">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <p class="text-sm font-medium text-neutral-500 mb-1">Votes for {{ $candidate }}</p>
-                            <p class="text-3xl font-bold text-neutral-900">{{ $totalVotes }}</p>
-                        </div>
-                        <div class="bg-primary-100 p-3 rounded-lg">
-                            <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M5 13l4 4L19 7"></path>
-                            </svg>
+    @if (!empty($votesPerCandidateForPie))
+        <div class="flex flex-col gap-6 mb-8">
+            <div class="flex flex-col md:flex-row gap-6">
+                @foreach ($votesPerCandidateForPie as $candidate => $totalVotes)
+                    <div
+                        class="flex-1 bg-white rounded-xl shadow-sm border border-neutral-200 p-6 hover:shadow-md transition-shadow">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm font-medium text-neutral-500 mb-1">Votes for {{ $candidate }}</p>
+                                <p class="text-3xl font-bold text-neutral-900">{{ $totalVotes }}</p>
+                            </div>
+                            <div class="bg-primary-100 p-3 rounded-lg">
+                                <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7"></path>
+                                </svg>
+                            </div>
                         </div>
                     </div>
-                </div>
-            @endforeach
+                @endforeach
+            </div>
         </div>
-    </div>
+    @endif
 
     <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-8">
         <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-6">

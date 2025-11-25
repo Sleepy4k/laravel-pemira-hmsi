@@ -13,11 +13,11 @@
         data-send-notification-url="{{ route('dashboard.voters.send-notification', ':id') }}">
     </header>
 
-    <div class="mb-8 flex items-center justify-between">
+    <div class="mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <h1 class="text-3xl font-bold text-neutral-900">
             List of Voters
         </h1>
-        <div class="flex items-center gap-4">
+        <div class="flex flex-wrap items-center gap-4">
             <button id="bulk-send-notification-btn"
                 class="inline-flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-green-700 transition-colors cursor-pointer">
                 <box-icon name="envelope" class="w-5 h-5" color="white"></box-icon>
