@@ -37,6 +37,15 @@ class Vote extends Model
     }
 
     /**
+     * Set the cache prefix.
+     *
+     * @return string
+     */
+    public function setCachePrefix(): string {
+        return 'vote.cache';
+    }
+
+    /**
      * Get the voting session that owns the vote.
      */
     public function votingSession()
